@@ -16,6 +16,9 @@ import Cita from './views/Citas';
 import Difusionn from './views/Difusion';
 import Expedientess from './views/Expedientes';
 import Pacientes from './views/Pacientes';
+import Terminos from './views/Terminos';
+import Privacidad from './views/Politicas';
+import Cookie from './views/Cookies';
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +29,9 @@ function App() {
         <Route path="/Ayuda" Component={Ayuda}></Route>
         <Route path="/Contacto" Component={Contacto}></Route>
         <Route path="/Login" Component={Loginn}></Route>
+        <Route path="/Terminos" Component={Terminos}></Route>
+        <Route path="/Privacidad" Component={Privacidad}></Route>
+        <Route path="/Cookies" Component={Cookie}></Route>
         <Route path="/Ad" Component={Adminn}></Route>
         <Route path="/Ad/Citas" Component={Cita}></Route>
         <Route path="/Ad/Difusion" Component={Difusionn}></Route>

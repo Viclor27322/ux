@@ -9,9 +9,11 @@ export default function Footer() {
             <div id="footer_inf1">
                 <h2 className="txt-inf"> Nosotros </h2>
                 <p className="txt-inf">Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vesti</p>
-                <Link to={'/terminos'} className="txt-inf" id="terminos-condiciones">TERMINOS Y CONDICIONES</Link>
+                <Link to={'/Terminos'} className="txt-inf" id="terminos-condiciones">TERMINOS Y CONDICIONES</Link>
                 <br/>
-                <Link to={'/'} className="txt-inf" id="terminos-condiciones">POLITICAS DE PRIVACIDAD</Link>
+                <Link to={'/Privacidad'} className="txt-inf" id="terminos-condiciones">POLITICAS DE PRIVACIDAD</Link>
+                <br/>
+                <Link to={'/Cookies'} className="txt-inf" id="terminos-condiciones">POLITICAS DE COOKIES</Link>
             </div>
 
             <div id="footer_inf2">
@@ -20,7 +22,6 @@ export default function Footer() {
                 <p className="txt-inf"><i className="fa-solid fa-envelope  rs-icons"></i>Lorem ipsum dolor sit amet consectetur</p>
                 <div className="txt-inf ">
                     <a href="https://wa.me/547711443040"><i className="fa-brands fa-whatsapp rs-icons  "></i></a>
-                    <a href="https://www.facebook.com/Helados-Huastecos-107166528740265/"><i className="fa-brands fa-facebook  rs-icons "></i></a>
                     <img src="" alt="" width="75px" height="75px" />
                 </div>
 
