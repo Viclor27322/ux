@@ -6,16 +6,18 @@ export default function Inicio() {
     return (
         <div className="container pt-5">
             <div className="row">
-                <div className="col-md-6 order-2 order-md-1">
-                    <div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vestibulum nostra nam non penatibus ullamcorper, lectus fringilla mollis viverra scelerisque ultrices nulla pharetra. Aliquam justo vestibulum fringilla turpis phasellus mattis nisl dapibus vitae nulla, socios feugiat bibendum dignissim accumsan luctus sem consequat velit. Himenaeos tincidunt euismod ultricies libero cursus mi sodales vestibulum eleifend, purus nisi dis sem facilisi facilisis penatibus class pellentesque, at fermentum aliquam nibh phasellus turpis habitant socios.
-                        </p>
+                <div className="col-md-6 order-2 order-md-1 ">
+                    <div className="pb-3">
+                       <div className="">
+                        <h2 className="text-primary">
+                            SOMOS UN EQUIPO MULTIDISCIPLINARIO DE PERSONAL DE LA SALUD, ENFOCADOS EN LA ATENCION DE PACIENTES CON PIE DIABETICO
+                        </h2>
+                        </div>
+                        <div>
+                            <h4 className="text-danger">Conserva tus pasos cuida tus pies</h4>
+                        </div> 
                     </div>
-                    <div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vestibulum nostra nam non penatibus ullamcorper, lectus fringilla mollis viverra scelerisque ultrices nulla pharetra. Aliquam justo vestibulum fringilla turpis phasellus mattis nisl dapibus vitae nulla, socios feugiat bibendum dignissim accumsan luctus sem consequat velit. Himenaeos tincidunt euismod ultricies libero cursus mi sodales vestibulum eleifend, purus nisi dis sem facilisi facilisis penatibus class pellentesque, at fermentum aliquam nibh phasellus turpis habitant socios.
-                        </p>
-                    </div>
-                    <button className="btn btn-primary">Contactanos</button>
+                    <button className="btn btn-success p-2">Contactanos</button>
                 </div>
                 <div className="col-md-6 order-1 order-md-2 d-flex justify-content-center">
                     <img src={Logo} alt="" className="w-75" />
@@ -27,23 +29,27 @@ export default function Inicio() {
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Mision</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vestibulum </p>
-
+                                    <h3 class="card-title text-primary ">Mision</h3>
+                                    <p class="card-text ">Proporcinar un servicio de atencion integral con la finalidad de prevenir, detectar, diagnosticar, tratar y rehabilitar a los pacientes con pie diabetico
+                                    ..</p>
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Vision</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vestibulum </p>
-
+                                    <h3 class="card-title text-primary">Vision</h3>
+                                    <p class="card-text">Preservar la integridad de los pacientes que cursen con pie diabetico de acuerdo a cada caso y crear un cambio consciente en los pacientes y su entorno </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="pt-4">
+                <h3>Mi ubicacion</h3>
+                <iframe src="https://www.google.com.mx/maps/place/Uniformes+Mi+Enfermera+Favorita/@21.143713,-98.4231253,18.79z/data=!4m6!3m5!1s0x85d7276c67e734b7:0x1b50d75f53f760a5!8m2!3d21.1438829!4d-98.4233404!16s%2Fg%2F11jt18jjqx?entry=ttu"></iframe>
             </div>
         </div>
     );

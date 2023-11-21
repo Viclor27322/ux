@@ -13,7 +13,7 @@ export default function Navbar() {
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse pe-5 " id="navbarNavAltMarkup">
-                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0 p-2">
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0 p-2 text-primary">
                             <li className="nav-item">
                                 <Link className="nav-link" to={'/'}>Inicio</Link>
                             </li>

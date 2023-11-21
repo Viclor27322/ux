@@ -4,24 +4,27 @@ import Clin from '../img/clin.jpg';
 export default function Notas() {
     return (
         <div className="container">
-            <h1 className="text-center pb-3">Notas</h1>
+            <h1 className="text-center pb-3 text-primary">Notas</h1>
             <div>
                 <div className="row p-3 border mb-3">
                     <div className="col-md-3">
                         <img src={Clin} alt="" className="img-fluid" />
                     </div>
                     <div className="col-md-9">
-                        <h3>Lorem ipsum dolor sit amet</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vestibulum nostra nam non penatibus ullamcorper, lectus fringilla mollis viverra scelerisque ultrices nulla pharetra. Aliquam justo vestibulum fringilla turpis phasellus mattis nisl dapibus vitae nulla, socios feugiat bibendum dignissim accumsan luctus sem consequat velit. Himenaeos tincidunt euismod ultricies libero cursus mi sodales vestibulum eleifend, purus nisi dis sem facilisi facilisis penatibus class pellentesque, at fermentum aliquam nibh phasellus turpis habitant socios.
+                        <h3 className="text-danger">¿Que es el pie diabetico?</h3>
+                        <p>
+                            Es el sindrome que se presenta como un ataque agudo o cronico del pie caracterizado por uno o mas heridas cuya etiologia, complejidad  y gravedad es una variable en destruccion de tejidos  en extension y profundidad, zonas y aspectos anatomicos que pueden ser agravado por isquemia, infeccion, edema, y neuropatia, con riesgo de amputacion en los pacientes con diabetes.
                         </p>
                     </div>
                 </div>
                 <div className="row p-3 border mb-3 text-end">
                     <div className="col-md-9">
-                        <h3 >Lorem ipsum dolor sit amet</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vestibulum nostra nam non penatibus ullamcorper, lectus fringilla mollis viverra scelerisque ultrices nulla pharetra. Aliquam justo vestibulum fringilla turpis phasellus mattis nisl dapibus vitae nulla, socios feugiat bibendum dignissim accumsan luctus sem consequat velit. Himenaeos tincidunt euismod ultricies libero cursus mi sodales vestibulum eleifend, purus nisi dis sem facilisi facilisis penatibus class pellentesque, at fermentum aliquam nibh phasellus turpis habitant socios.
-                        </p>
-                    </div>
+                        <h3  className="text-danger">Nutricion y ulcera de pie diabetico (UPD)</h3>
+                        <p>
+                            La UPD es una complicacion grave, asociadas a la neuropatia diabetica. Son heridas, dificiles de manejar ya que no cicatrizan o cicatrizan mal.
+                            La nutricion ocupa un papel primordial en la cicatrizacion de las heridas, pues es necesario, un aporte extra de nutrientes para la reparecion de tejido.</p>
+                    
+                       </div>
                     <div className="col-md-3">
                         <img src={Clin} alt="" className="img-fluid" />
                     </div>
