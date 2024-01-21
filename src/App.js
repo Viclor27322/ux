@@ -38,7 +38,7 @@ function App() {
         <Route path="/Ad/Difusion" Component={Difusionn}></Route>
         <Route path="/Ad/Expediente" Component={Expedientess}></Route>
         <Route path="/Ad/Pacientes" Component={Pacientes}></Route>
-        <Route path='/Error404' Component={error404}></Route>
+        <Route path='/*' Component={error404}></Route>
       </Routes>
     </BrowserRouter>
   );
