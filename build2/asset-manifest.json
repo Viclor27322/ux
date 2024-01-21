@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d76c241e.css",
+    "main.js": "/static/js/main.03da3137.js",
+    "static/js/787.051ca430.chunk.js": "/static/js/787.051ca430.chunk.js",
+    "static/media/CirupieD.png": "/static/media/CirupieD.dc461e8bbd500d91b779.png",
+    "index.html": "/index.html",
+    "main.d76c241e.css.map": "/static/css/main.d76c241e.css.map",
+    "main.03da3137.js.map": "/static/js/main.03da3137.js.map",
+    "787.051ca430.chunk.js.map": "/static/js/787.051ca430.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d76c241e.css",
+    "static/js/main.03da3137.js"
+  ]
+}

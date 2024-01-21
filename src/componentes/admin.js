@@ -9,13 +9,13 @@ export default function Admin() {
   const events = [
     {
       title: "Evento 1",
-      start: new Date(2023, 0, 1),
-      end: new Date(2023, 0, 3),
+      start: new Date(2024, 0, 1),
+      end: new Date(2024, 0, 5),
     },
     {
-      title: "Evento 2",
-      start: new Date(2023, 0,  7),
-      end: new Date(2023, 0, 10),
+      title: "MOB",
+      start: new Date(2024, 7,  22),
+      end: new Date(2024, 7, 22),
     },
     // Agrega más eventos según tus necesidades
   ];

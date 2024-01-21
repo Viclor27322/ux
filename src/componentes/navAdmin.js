@@ -14,9 +14,12 @@ export default function NavbarAdmin() {
                     </button>
                     <div class="collapse navbar-collapse pe-5 " id="navbarNavAltMarkup">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                            {/* Enfermera normal */}
                             <li className="nav-item">
                                 <Link className="nav-link" to={'/Ad'}>Inicio</Link>
                             </li>
+                            {/* Enfermera general
+                            Doctor */}
                             <li className="nav-item">
                                 <Link className="nav-link" to={'/Ad/Citas'}>Citas</Link>
                             </li>
@@ -29,7 +32,9 @@ export default function NavbarAdmin() {
                             <li className="nav-item">
                                 <Link className="nav-link" to={'/Ad/Difusion'}>Difusion</Link>
                             </li>
-
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/'}>Cerrar Sesion</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

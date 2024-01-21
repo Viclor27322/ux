@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/nav.css';
+
 export default function Navbar() {
     return (
-        <div id='nav-color'>
+        <div id=''>
             
             
             <nav class="navbar navbar-expand-lg navbar-light bg-light  pe-5 border bt-2 bs-0">
@@ -29,7 +29,12 @@ export default function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link" to={'/Contacto'}>Contactanos</Link>
                             </li>
-
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/Login'}>Login</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/Ad'}>Admin</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

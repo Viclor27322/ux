@@ -1,0 +1,23 @@
+.text-titulo{
+    color: #00488f;
+}
+
+.text-sub{
+    color: #5c002e;
+}
+
+.text-boton{
+    background-color:#12cc0a;
+}
+
+.bg-sub{
+    background-color: #64f0dd;
+    border: 2px;
+    border-radius: 10px;
+}
+
+.bg-sub2{
+    background-color: #f5e793;
+    border: 2px;
+    border-radius: 10px;
+}

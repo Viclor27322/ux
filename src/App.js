@@ -19,6 +19,7 @@ import Pacientes from './views/Pacientes';
 import Terminos from './views/Terminos';
 import Privacidad from './views/Politicas';
 import Cookie from './views/Cookies';
+import error404 from './componentes/Error404';
 function App() {
   return (
     <BrowserRouter>
@@ -37,6 +38,7 @@ function App() {
         <Route path="/Ad/Difusion" Component={Difusionn}></Route>
         <Route path="/Ad/Expediente" Component={Expedientess}></Route>
         <Route path="/Ad/Pacientes" Component={Pacientes}></Route>
+        <Route path='/Error404' Component={error404}></Route>
       </Routes>
     </BrowserRouter>
   );

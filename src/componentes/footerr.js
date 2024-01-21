@@ -8,12 +8,13 @@ export default function Footer() {
       <section className="sect1_footer_inf text-white mt-3 text-dark">
             <div id="footer_inf1">
                 <h2 className="txt-inf"> Nosotros </h2>
-                <p className="txt-inf">Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vesti</p>
-                <Link to={'/Terminos'} className="txt-inf" id="terminos-condiciones">TERMINOS Y CONDICIONES</Link>
+                <p className="txt-inf">SOMOS UN EQUIPO MULTIDISCIPLINARIO DE PERSONAL DE LA SALUD, ENFOCADOS EN LA ATENCION DE PACIENTES CON PIE DIABETICO
+                        </p>
+                <Link to={'/Terminos'} className="txt-inf" id="terminos-condiciones">Terminos y condiciones</Link>
                 <br/>
-                <Link to={'/Privacidad'} className="txt-inf" id="terminos-condiciones">POLITICAS DE PRIVACIDAD</Link>
+                <Link to={'/Privacidad'} className="txt-inf" id="terminos-condiciones">Politicas de privacidad</Link>
                 <br/>
-                <Link to={'/Cookies'} className="txt-inf" id="terminos-condiciones">POLITICAS DE COOKIES</Link>
+                <Link to={'/Cookies'} className="txt-inf" id="terminos-condiciones">Politicas de cookies</Link>
             </div>
 
             <div id="footer_inf2">

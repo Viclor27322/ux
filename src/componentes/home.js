@@ -9,15 +9,15 @@ export default function Inicio() {
                 <div className="col-md-6 order-2 order-md-1 ">
                     <div className="pb-3">
                        <div className="">
-                        <h2 className="text-primary">
+                        <h2 className="text-titulo">
                             SOMOS UN EQUIPO MULTIDISCIPLINARIO DE PERSONAL DE LA SALUD, ENFOCADOS EN LA ATENCION DE PACIENTES CON PIE DIABETICO
                         </h2>
                         </div>
                         <div>
-                            <h4 className="text-danger">Conserva tus pasos cuida tus pies</h4>
+                            <h4 className="text-sub">Conserva tus pasos cuida tus pies</h4>
                         </div> 
                     </div>
-                    <button className="btn btn-success p-2">Contactanos</button>
+                    <a href="/Contacto" className="btn btn-success p-2">Contactanos</a>
                 </div>
                 <div className="col-md-6 order-1 order-md-2 d-flex justify-content-center">
                     <img src={Logo} alt="" className="w-75" />
@@ -27,7 +27,7 @@ export default function Inicio() {
                 <div className="pt-5 pe-5">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="card">
+                            <div class="card ">
                                 <div class="card-body">
                                     <h3 class="card-title text-primary ">Mision</h3>
                                     <p class="card-text ">Proporcinar un servicio de atencion integral con la finalidad de prevenir, detectar, diagnosticar, tratar y rehabilitar a los pacientes con pie diabetico
@@ -36,8 +36,8 @@ export default function Inicio() {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="card">
+                        <div class="col-sm-6 ">
+                            <div class="card bg-light">
                                 <div class="card-body">
                                     <h3 class="card-title text-primary">Vision</h3>
                                     <p class="card-text">Preservar la integridad de los pacientes que cursen con pie diabetico de acuerdo a cada caso y crear un cambio consciente en los pacientes y su entorno </p>
