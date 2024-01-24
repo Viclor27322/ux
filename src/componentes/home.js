@@ -1,9 +1,11 @@
 import React from "react";
 
 import Logo from '../img/CirupieD.png';
+import Breadcrumbs from '../componentes/Migas';
 
 export default function Inicio() {
     return (
+        
         <div className="container pt-5">
             <div className="row">
                 <div className="col-md-6 order-2 order-md-1 ">

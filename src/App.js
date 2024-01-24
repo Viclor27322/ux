@@ -20,6 +20,7 @@ import Terminos from './views/Terminos';
 import Privacidad from './views/Politicas';
 import Cookie from './views/Cookies';
 import error404 from './componentes/Error404';
+import Registro from './componentes/Registro';
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +40,7 @@ function App() {
         <Route path="/Ad/Expediente" Component={Expedientess}></Route>
         <Route path="/Ad/Pacientes" Component={Pacientes}></Route>
         <Route path='/*' Component={error404}></Route>
+        <Route path='/Registro' Component={Registro}></Route>
       </Routes>
     </BrowserRouter>
   );
