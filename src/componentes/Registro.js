@@ -1,11 +1,12 @@
 import React, { useState} from "react";
 import Logo from '../img/CirupieD.png';
-import { Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRef } from 'react';
 import Input from './comInput';
 
 export default function Registro() {
+    const history = useNavigate();
     const [nombre, cambiarNombre] = useState({campo:'',valido: null});
     const [correo, cambiarCorreo] = useState({campo:'',valido: null});
     const [pass, cambiarPass] = useState({campo:'',valido: null});
@@ -29,7 +30,7 @@ export default function Registro() {
        }
     }
 
-    const submit = (e)=> {
+    const submit = async (e)=> {
         e.preventDefault();
         if(captcha.current.getValue()){
             setMensajeError('');
@@ -37,15 +38,44 @@ export default function Registro() {
             setMensajeError('Verifica el valor del captcha');
        }
         if(
+            nombre.valido === 'true' &&
             correo.valido === 'true' &&
-            pass.valido === 'true '
+            pass.valido === 'true' 
         ){
-            cambiarFormularioValido('');
-            cambiarCorreo({campo:'', valido: null});
-            cambiarPass({campo:'', valido: null}); 
-             // enviar a la api
+            try {
+                const response = await fetch('http://localhost:3001/api/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        Nombre: nombre.campo,
+                        Correo: correo.campo,
+                        Password: pass.campo
+                    }),
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    // Aquí puedes manejar la respuesta exitosa, por ejemplo, redirigir al usuario a otra página
+                    console.log('Registro exitoso', data);
+                    history('/Login');
+
+                } else {
+                    // Aquí puedes manejar la respuesta con error, por ejemplo, mostrar un mensaje al usuario
+                    console.error('Error en el registro:', data.msg);
+                    setMensajeError(data.msg);
+                }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+                setMensajeError('Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.');
+            }
         }else{
             cambiarFormularioValido('Por favor llenar el formulario correctamente');
+            console.log(nombre.campo, nombre.valido);
+            console.log(correo.campo,correo.valido);
+            console.log(pass.campo, pass.valido);
         }
         
     }

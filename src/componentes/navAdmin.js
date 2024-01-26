@@ -33,6 +33,9 @@ export default function NavbarAdmin() {
                                 <Link className="nav-link" to={'/Ad/Difusion'}>Difusion</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to={'/Ad/ListaUser'}>Usuarios</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to={'/'}>Cerrar Sesion</Link>
                             </li>
                         </ul>

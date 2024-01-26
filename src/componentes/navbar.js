@@ -33,7 +33,7 @@ export default function Navbar() {
                                 <Link className="nav-link" to={'/Login'}>Login</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad'}>Admin</Link>
+                                <Link className="nav-link" to={'/Registro'}>Registro</Link>
                             </li>
                         </ul>
                     </div>

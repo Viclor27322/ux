@@ -21,6 +21,9 @@ import Privacidad from './views/Politicas';
 import Cookie from './views/Cookies';
 import error404 from './componentes/Error404';
 import Registro from './componentes/Registro';
+import Recuperacion from './componentes/Recuperacion';
+import ResetPassword from './componentes/ResetPass';
+import Usuarios from './views/Usuarios';
 function App() {
   return (
     <BrowserRouter>
@@ -41,6 +44,9 @@ function App() {
         <Route path="/Ad/Pacientes" Component={Pacientes}></Route>
         <Route path='/*' Component={error404}></Route>
         <Route path='/Registro' Component={Registro}></Route>
+        <Route path='/Recuperacion' Component={Recuperacion}></Route>
+        <Route path='/reset-password/:Correo' Component={ResetPassword}></Route>
+        <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
       </Routes>
     </BrowserRouter>
   );

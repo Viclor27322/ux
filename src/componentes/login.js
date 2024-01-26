@@ -1,11 +1,12 @@
 import React, { useState} from "react";
 import Logo from '../img/CirupieD.png';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRef } from 'react';
 import Input from './comInput';
 
 export default function Login() {
+    const history = useNavigate();
     const [correo, cambiarCorreo] = useState({campo:'',valido: null});
     const [pass, cambiarPass] = useState({campo:'',valido: null});
     const [formularioValido, cambiarFormularioValido] = useState('');
@@ -28,26 +29,49 @@ export default function Login() {
        }
     }
 
-    const submit = (e)=> {
+    
+    const Onsubmit = async (e) => {
         e.preventDefault();
-        if(captcha.current.getValue()){
-            setMensajeError('');
-       }else{
+        
+        /* if (!captcha.current.getValue()) {
             setMensajeError('Verifica el valor del captcha');
-       }
-        if(
-            correo.valido === 'true' &&
-            pass.valido === 'true '
-        ){
-            cambiarFormularioValido('');
-            cambiarCorreo({campo:'', valido: null});
-            cambiarPass({campo:'', valido: null}); 
-             // enviar a la api
-        }else{
+            return;
+        } */
+    
+        if (correo.valido === 'true' && pass.valido === 'true') {
+            try {
+                const response = await fetch('http://localhost:3001/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        Correo: correo.campo,
+                        Password: pass.campo,
+                    }),
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    // Aquí puedes manejar la respuesta exitosa, por ejemplo, redirigir al usuario a otra página
+                    console.log('Inicio de sesión exitoso:', data);
+                    history('/Ad');
+
+                } else {
+                    // Aquí puedes manejar la respuesta con error, por ejemplo, mostrar un mensaje al usuario
+                    console.error('Error en el inicio de sesión:', data);
+                    setMensajeError('Credenciales incorrectas. Por favor, verifica tu correo y contraseña.');
+                }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+                setMensajeError('Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.');
+            }
+        } else {
             cambiarFormularioValido('Por favor llenar el formulario correctamente');
         }
-        
-    }
+    };
+    
 
     return (
         <div className="container">
@@ -59,7 +83,7 @@ export default function Login() {
                         </div>
 
                         <div className="card-body">
-                            <form className="form" onSubmit={submit}>
+                            <form className="form" onSubmit={Onsubmit}>
                                 <Input
                                     estado={correo}
                                     cambiarEstado={cambiarCorreo}
@@ -111,7 +135,7 @@ export default function Login() {
                                 
                             </form>
                             <div className="p-2">
-                                    <Link className="link">Recuperacion de contraseña</Link>
+                                    <Link className="link" to={'/Recuperacion'}>Recuperacion de contraseña</Link>
                                 </div>
                         </div>
                     </div>
