@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, } from 'react';
+import { useParams,useNavigate } from 'react-router-dom';
 import Input from '../componentes/comInput';
 import Logo from '../img/CirupieD.png';
 
 const ResetPassword = () => {
+  const history = useNavigate();
   const { Correo } = useParams();
   const [password, setPassword] = useState({ campo: '', valido: null });
   const [confirmPassword, setConfirmPassword] = useState({ campo: '', valido: null });
@@ -18,19 +19,19 @@ const ResetPassword = () => {
     cambiarFormularioValido('');
 
     if (password.campo === confirmPassword.campo) {
-      const response = await fetch(`http://localhost:3001/api/reset-password`, {
+      const response = await fetch(`http://localhost:3001/api/users/reset-password/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ Correo, password: password.campo }),
+        body: JSON.stringify({ Correo, Password: password.campo }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         console.log('Contraseña restablecida con éxito', data);
-        // Redirige al usuario a la página de inicio de sesión o a otra página relevante
+        history('/Login');
       } else {
         console.error('Error al restablecer la contraseña:', data);
         cambiarFormularioValido('Ha existido un error en el servidor, inténtelo más tarde');
