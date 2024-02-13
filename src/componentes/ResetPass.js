@@ -5,7 +5,7 @@ import Logo from '../img/CirupieD.png';
 
 const ResetPassword = () => {
   const history = useNavigate();
-  const { Correo } = useParams();
+  const { Token } = useParams();
   const [password, setPassword] = useState({ campo: '', valido: null });
   const [confirmPassword, setConfirmPassword] = useState({ campo: '', valido: null });
   const [formularioValido, cambiarFormularioValido] = useState('');
@@ -18,13 +18,15 @@ const ResetPassword = () => {
     e.preventDefault();
     cambiarFormularioValido('');
 
+
+
     if (password.campo === confirmPassword.campo) {
       const response = await fetch(`http://localhost:3001/api/users/reset-password/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ Correo, Password: password.campo }),
+        body: JSON.stringify({ Token, Password: password.campo }),
       });
 
       const data = await response.json();

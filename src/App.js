@@ -24,9 +24,11 @@ import Registro from './componentes/Registro';
 import Recuperacion from './componentes/Recuperacion';
 import ResetPassword from './componentes/ResetPass';
 import Usuarios from './views/Usuarios';
+import { AuthContextProvider } from './Auth/AuthProvider';
 function App() {
   return (
-    <BrowserRouter>
+    <AuthContextProvider>
+          <BrowserRouter>
       <Routes>
         <Route path="/" Component={Home}></Route>
         <Route path="/Notas" Component={Nota}></Route>
@@ -45,10 +47,12 @@ function App() {
         <Route path='/*' Component={error404}></Route>
         <Route path='/Registro' Component={Registro}></Route>
         <Route path='/Recuperacion' Component={Recuperacion}></Route>
-        <Route path='/reset-password/:Correo' Component={ResetPassword}></Route>
+        <Route path='/reset-password/:Token' Component={ResetPassword}></Route>
         <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
       </Routes>
     </BrowserRouter>
+    </AuthContextProvider>
+
   );
 }
 

@@ -10,15 +10,17 @@ export default function Registro() {
     const [nombre, cambiarNombre] = useState({campo:'',valido: null});
     const [correo, cambiarCorreo] = useState({campo:'',valido: null});
     const [pass, cambiarPass] = useState({campo:'',valido: null});
+    const [Telefono, cambiarTelefono] = useState({campo:'',valido: null});
     const [formularioValido, cambiarFormularioValido] = useState('');
     const [mensajeError, setMensajeError] = useState('');
+    const [registroValido, cambiarRegistroValido] =useState('');
 
     const expresiones = {
         usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
         nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
         password: /^.{4,12}$/, // 4 a 12 digitos.
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+        telefono: /^\d{10}$/ // 7 a 14 numeros.
     }
 
     const captcha = useRef(null); 
@@ -32,15 +34,16 @@ export default function Registro() {
 
     const submit = async (e)=> {
         e.preventDefault();
-        if(captcha.current.getValue()){
+        /* if(captcha.current.getValue()){
             setMensajeError('');
        }else{
             setMensajeError('Verifica el valor del captcha');
-       }
+       } */
         if(
             nombre.valido === 'true' &&
             correo.valido === 'true' &&
-            pass.valido === 'true' 
+            pass.valido === 'true' &&
+            Telefono.valido == 'true'
         ){
             try {
                 const response = await fetch('http://localhost:3001/api/users', {
@@ -51,7 +54,8 @@ export default function Registro() {
                     body: JSON.stringify({
                         Nombre: nombre.campo,
                         Correo: correo.campo,
-                        Password: pass.campo
+                        Password: pass.campo,
+                        Telefono: Telefono.campo
                     }),
                 });
     
@@ -59,8 +63,24 @@ export default function Registro() {
     
                 if (response.ok) {
                     // Aquí puedes manejar la respuesta exitosa, por ejemplo, redirigir al usuario a otra página
-                    console.log('Registro exitoso', data);
-                    history('/Login');
+                    console.log('Registro exitoso', data);/* 
+                    cambiarRegistroValido('Registro exitoso ahora solo falta validar tu correo'); */
+                     history('/Login');
+                    /* const enviado = await fetch('http://localhost:3001/api/sendLogin',{
+                        method: 'POST',
+                        headers:{
+                            'Content-Type':'application/json',
+                        },
+                        body: JSON.stringify({
+                            Token: data.randomCode,
+                            Correo: correo.campo
+                        }),
+                    });
+                    const datas = await enviado.json()
+                    if(!enviado.ok){
+                        setMensajeError(datas.msg);
+                    } */
+                    
 
                 } else {
                     // Aquí puedes manejar la respuesta con error, por ejemplo, mostrar un mensaje al usuario
@@ -69,7 +89,7 @@ export default function Registro() {
                 }
             } catch (error) {
                 console.error('Error en la solicitud:', error);
-                setMensajeError('Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.');
+                setMensajeError('Error al realizar el registro.');
             }
         }else{
             cambiarFormularioValido('Por favor llenar el formulario correctamente');
@@ -124,15 +144,18 @@ export default function Registro() {
                                     expresionRegular={expresiones.password}
                                 
                                 />
+                                 <Input
+                                    estado={Telefono}
+                                    cambiarEstado={cambiarTelefono}
+                                    tipo="tel"
+                                    label="Telefono"
+                                    placeholder="Ingresa tu numero de telefono"
+                                    name="telefono"
+                                    leyendaError="Asegurate de agregar un numero de telefono correcto"
+                                    expresionRegular={expresiones.telefono}
                                 
-                               {/*  <div className="mb-3">
-                                    <label htmlFor="email" className="form-label">Correo Electrónico</label>
-                                    <input type="email" className="form-control" id="email"  placeholder="Ingresa el correo electronico"/>
-                                </div> */}
-                                {/* <div className="mb-3 pb-3">
-                                    <label htmlFor="password" className="form-label">Contraseña</label>
-                                    <input type="password" className="form-control" id="password" placeholder="Ingresa la contaseña" />
-                                </div> */}
+                                />
+                                
                                 <div className="recaptcha pb-3">
                                     <ReCAPTCHA
                                         ref={captcha}
@@ -142,12 +165,14 @@ export default function Registro() {
                                 </div>
                                 <div className="text-danger">
                                         {mensajeError}
-                                </div>
-                                <div className="text-danger">
                                         {formularioValido}
+                                </div>
+                                <div className="text-success">
+                                        {registroValido}
                                 </div>
                                 <div className="text-center">
                                     <button type="submit" className="btn btn-primary btn-block ">Registro</button>
+                                    <a ></a>
                                 </div>
                                 
                                 

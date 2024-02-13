@@ -1,9 +1,10 @@
-import React, { useState} from "react";
+import React, {useContext, useState} from "react";
 import Logo from '../img/CirupieD.png';
 import { Link , useNavigate} from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRef } from 'react';
 import Input from './comInput';
+import { AuthContext } from '../Auth/AuthProvider';
 
 export default function Login() {
     const history = useNavigate();
@@ -11,13 +12,14 @@ export default function Login() {
     const [pass, cambiarPass] = useState({campo:'',valido: null});
     const [formularioValido, cambiarFormularioValido] = useState('');
     const [mensajeError, setMensajeError] = useState('');
+    const { login } = useContext(AuthContext);
 
     const expresiones = {
         usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
         nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
         password: /^.{4,12}$/, // 4 a 12 digitos.
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+        telefono: /^\d{10}$/ // 10 numeros
     }
 
     const captcha = useRef(null); 
@@ -33,10 +35,10 @@ export default function Login() {
     const Onsubmit = async (e) => {
         e.preventDefault();
         
-        /* if (!captcha.current.getValue()) {
+        if (!captcha.current.getValue()) {
             setMensajeError('Verifica el valor del captcha');
             return;
-        } */
+        }
     
         if (correo.valido === 'true' && pass.valido === 'true') {
             try {
@@ -56,6 +58,8 @@ export default function Login() {
                 if (response.ok) {
                     // Aquí puedes manejar la respuesta exitosa, por ejemplo, redirigir al usuario a otra página
                     console.log('Inicio de sesión exitoso:', data);
+                    const user = data;
+                    login(user);
                     history('/Ad');
 
                 } else {
@@ -106,15 +110,6 @@ export default function Login() {
                                     expresionRegular={expresiones.password}
                                 
                                 />
-                                
-                               {/*  <div className="mb-3">
-                                    <label htmlFor="email" className="form-label">Correo Electrónico</label>
-                                    <input type="email" className="form-control" id="email"  placeholder="Ingresa el correo electronico"/>
-                                </div> */}
-                                {/* <div className="mb-3 pb-3">
-                                    <label htmlFor="password" className="form-label">Contraseña</label>
-                                    <input type="password" className="form-control" id="password" placeholder="Ingresa la contaseña" />
-                                </div> */}
                                 <div className="recaptcha pb-3">
                                     <ReCAPTCHA
                                         ref={captcha}

@@ -37,8 +37,10 @@ export default function Recuperacion() {
                 });
     
                 const dataExist = await responseExist.json();
+                console.log(dataExist);
     
                 if (responseExist.ok) {
+                    console.log(dataExist);
                     setMensajeValidacion('Se ha enviado un mensaje a tu correo para que restablezcas la contraseña');
                     
                     const responseSendEmail = await fetch('http://localhost:3001/api/send-email', {
@@ -46,7 +48,7 @@ export default function Recuperacion() {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ Correo: correo.campo }),
+                        body: JSON.stringify({ Token: dataExist.Token, Correo: correo.campo }),
                     });
                     
                     const dataSendEmail = await responseSendEmail.json();
@@ -55,6 +57,8 @@ export default function Recuperacion() {
                         console.log('El correo se envió con éxito', dataSendEmail);
                         setMensajeValidacion('Correo de recuperación enviado');
                     } else {
+                        setMensajeValidacion('');
+                        setMensajeError('Error al enviar el correo');
                         console.error('Error al enviar el correo', dataSendEmail);
                         // Muestra un mensaje de error al usuario
                     }

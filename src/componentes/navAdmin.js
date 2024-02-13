@@ -1,7 +1,21 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../css/nav.css';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Auth/AuthProvider';
+
 export default function NavbarAdmin() {
+    const { isAuthenticated,logout,user } = useContext(AuthContext);
+    const history = useNavigate();
+    useEffect(()=>{
+        if(!isAuthenticated){
+            history('/');
+        }
+    })
+    const Salir=()=>{
+        logout();
+        history('/login');
+    }
     return (
         <div className='nav-color'>
             
@@ -14,30 +28,76 @@ export default function NavbarAdmin() {
                     </button>
                     <div class="collapse navbar-collapse pe-5 " id="navbarNavAltMarkup">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                            {/* Enfermera normal */}
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad'}>Inicio</Link>
-                            </li>
-                            {/* Enfermera general
-                            Doctor */}
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad/Citas'}>Citas</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad/Expediente'}>Expedientes</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad/Pacientes'}>Paciente</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad/Difusion'}>Difusion</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad/ListaUser'}>Usuarios</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/'}>Cerrar Sesion</Link>
-                            </li>
+                            
+                           {user !== null ?(
+                                user.IdRol == 1 && 2 ? (
+                                <div className='d-flex'>   
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad'}>Inicio</Link>
+                                </li>
+                                
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Citas'}>Citas</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Expediente'}>Expedientes</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Pacientes'}>Paciente</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Difusion'}>Difusion</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/ListaUser'}>Usuarios</Link>
+                                </li>
+                            </div>
+                                ):(
+                                    <div>
+
+                                    </div>
+                                )
+                           ):null}
+                            {user !== null ?(
+                                user.IdRol == 3 && 5 ? (
+                                <div className='d-flex'>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad'}>Inicio</Link>
+                                </li>
+                                
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Citas'}>Citas</Link>
+                                </li>
+                            </div>
+                                ):(
+                                    <div>
+
+                                    </div>
+                                )
+                           ):null}
+                           {user !== null ?(
+                                user.IdRol == 4 ? (
+                                <div className='d-flex'>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad'}>Inicio</Link>
+                                </li>
+                                
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Citas'}>Citas</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/ListaUser'}>Usuarios</Link>
+                                </li>
+                            </div>
+                                ):(
+                                    <div>
+
+                                    </div>
+                                )
+                           ):null}
+
+                           <input type="button" className="btn btn-success me-2" onClick={Salir} value="Logout"/>
+                        
                         </ul>
                     </div>
                 </div>
