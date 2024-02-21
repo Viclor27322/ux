@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-fixture('Login')
+fixture('Logins')
     .page('https://cirupied-eight.vercel.app/');
 
     test('Iniciar sesión con credenciales válidas', async t => {
