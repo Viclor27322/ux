@@ -20,13 +20,13 @@ export default function NavbarAdmin() {
         <div className='nav-color'>
             
             
-            <nav class="navbar navbar-expand-lg navbar-light bg-light pe-5 border bt-2">
-                <div class="container-fluid ">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light pe-5 border bt-2">
+                <div className="container-fluid ">
                     
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse pe-5 " id="navbarNavAltMarkup">
+                    <div className="collapse navbar-collapse pe-5 " id="navbarNavAltMarkup">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             
                            {user !== null ?(

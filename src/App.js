@@ -25,32 +25,34 @@ import Recuperacion from './componentes/Recuperacion';
 import ResetPassword from './componentes/ResetPass';
 import Usuarios from './views/Usuarios';
 import { AuthContextProvider } from './Auth/AuthProvider';
+import { CSPMetaTag } from './CSP/CspMetaTag';
 function App() {
   return (
     <AuthContextProvider>
           <BrowserRouter>
-      <Routes>
-        <Route path="/" Component={Home}></Route>
-        <Route path="/Notas" Component={Nota}></Route>
-        <Route path="/Especialistas" Component={Especialista}></Route>
-        <Route path="/Ayuda" Component={Ayuda}></Route>
-        <Route path="/Contacto" Component={Contacto}></Route>
-        <Route path="/Login" Component={Loginn}></Route>
-        <Route path="/Terminos" Component={Terminos}></Route>
-        <Route path="/Privacidad" Component={Privacidad}></Route>
-        <Route path="/Cookies" Component={Cookie}></Route>
-        <Route path="/Ad" Component={Adminn}></Route>
-        <Route path="/Ad/Citas" Component={Cita}></Route>
-        <Route path="/Ad/Difusion" Component={Difusionn}></Route>
-        <Route path="/Ad/Expediente" Component={Expedientess}></Route>
-        <Route path="/Ad/Pacientes" Component={Pacientes}></Route>
-        <Route path='/*' Component={error404}></Route>
-        <Route path='/Registro' Component={Registro}></Route>
-        <Route path='/Recuperacion' Component={Recuperacion}></Route>
-        <Route path='/reset-password/:Token' Component={ResetPassword}></Route>
-        <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
-      </Routes>
-    </BrowserRouter>
+            <CSPMetaTag/>
+            <Routes>
+              <Route path="/" Component={Home}></Route>
+              <Route path="/Notas" Component={Nota}></Route>
+              <Route path="/Especialistas" Component={Especialista}></Route>
+              <Route path="/Ayuda" Component={Ayuda}></Route>
+              <Route path="/Contacto" Component={Contacto}></Route>
+              <Route path="/Login" Component={Loginn}></Route>
+              <Route path="/Terminos" Component={Terminos}></Route>
+              <Route path="/Privacidad" Component={Privacidad}></Route>
+              <Route path="/Cookies" Component={Cookie}></Route>
+              <Route path="/Ad" Component={Adminn}></Route>
+              <Route path="/Ad/Citas" Component={Cita}></Route>
+              <Route path="/Ad/Difusion" Component={Difusionn}></Route>
+              <Route path="/Ad/Expediente" Component={Expedientess}></Route>
+              <Route path="/Ad/Pacientes" Component={Pacientes}></Route>
+              <Route path='/*' Component={error404}></Route>
+              <Route path='/Registro' Component={Registro}></Route>
+              <Route path='/Recuperacion' Component={Recuperacion}></Route>
+              <Route path='/reset-password/:Token' Component={ResetPassword}></Route>
+              <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
+            </Routes>
+          </BrowserRouter>
     </AuthContextProvider>
 
   );
