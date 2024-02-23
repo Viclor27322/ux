@@ -35,10 +35,10 @@ export default function Login() {
     const Onsubmit = async (e) => {
         e.preventDefault();
         
-        if (!captcha.current.getValue()) {
+        /* if (!captcha.current.getValue()) {
             setMensajeError('Verifica el valor del captcha');
             return;
-        }
+        } */
     
         if (correo.valido === 'true' && pass.valido === 'true') {
             try {
@@ -91,7 +91,6 @@ export default function Login() {
                                 <Input
                                     estado={correo}
                                     cambiarEstado={cambiarCorreo}
-                                    id="email"
                                     tipo="email"
                                     label="Correo Electrónico"
                                     placeholder="Ingresa el correo electronico"
@@ -103,7 +102,6 @@ export default function Login() {
                                 <Input
                                     estado={pass}
                                     cambiarEstado={cambiarPass}
-                                    id="pass"
                                     tipo="password"
                                     label="Contraseña"
                                     placeholder="Ingresa la contaseña"
@@ -112,13 +110,13 @@ export default function Login() {
                                     expresionRegular={expresiones.password}
                                 
                                 />
-                                <div className="recaptcha pb-3">
+                                {/* <div className="recaptcha pb-3">
                                     <ReCAPTCHA
                                         ref={captcha}
                                         sitekey="6Le1clcpAAAAACoTgKJ-IcXfNhD3AGSEMFM-HPA3"
                                         onChange={onChange}
                                     />
-                                </div>
+                                </div> */}
                                 <div className="text-danger">
                                         {mensajeError}
                                 </div>

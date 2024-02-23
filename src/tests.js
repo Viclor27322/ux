@@ -9,8 +9,8 @@ test('Iniciar sesión con credenciales válidas', async t => {
 
     // Ingresa el correo electrónico y la contraseña
     await t
-        .typeText('#email', 'correo@example.com')
-        .typeText('#pass', 'contraseña123'); // Actualiza el selector según el atributo id de tu campo de entrada de contraseña
+        .typeText('#correo', 'correo@example.com')
+        .typeText('#pass', 'password12'); // Actualiza el selector según el atributo id de tu campo de entrada de contraseña
 
     // Envía el formulario
     await t.click('button[type="submit"]');
