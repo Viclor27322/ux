@@ -91,6 +91,7 @@ export default function Login() {
                                 <Input
                                     estado={correo}
                                     cambiarEstado={cambiarCorreo}
+                                    id="email"
                                     tipo="email"
                                     label="Correo Electrónico"
                                     placeholder="Ingresa el correo electronico"
@@ -102,6 +103,7 @@ export default function Login() {
                                 <Input
                                     estado={pass}
                                     cambiarEstado={cambiarPass}
+                                    id="pass"
                                     tipo="password"
                                     label="Contraseña"
                                     placeholder="Ingresa la contaseña"
