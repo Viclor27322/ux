@@ -14,8 +14,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}  
-      env:
-        NODE_VERSION: '16'
 
     - name: Use Node.js 16
       uses: actions/setup-node@v3
@@ -26,4 +24,4 @@ jobs:
       run: npm install  
 
     - name: Run TestCafe
-      run: npx testcafe 'chrome:headless' tests.js 
+      run: npx testcafe 'chrome:headless' tests.js
