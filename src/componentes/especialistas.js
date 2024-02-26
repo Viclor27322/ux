@@ -31,7 +31,7 @@ export default function Especialistas(){
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Lorem ipsum</h5>
+                                    <h5 class="card-title">Dr Martin Gustavo Felipe Redondo</h5>
                                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipiscing elit aenean ante, sollicitudin arcu sociis vestibulum </p>
 
                                 </div>
