@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import Nav from '../componentes/nav';
+import Recuperacionn from '../componentes/Recuperacion';
 import Footer from '../componentes/footerr';
-import UserTable from '../componentes/Usuarios';
-import NavbarAdmin from '../componentes/navAdmin';
-class Usuarios extends Component{
+class Recuperacion extends Component{
     render(){
     return(
-        <div id='home'>
+        <div>
             <div>
             <Nav/>
-                <NavbarAdmin/>
             </div>
             <div>
-                <UserTable/>
+                <Recuperacionn/>
             </div>
             <div>
                 <Footer/>
@@ -22,4 +20,4 @@ class Usuarios extends Component{
   }
 }
 
-export default Usuarios;
+export default Recuperacion;

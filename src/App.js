@@ -20,14 +20,14 @@ import Terminos from './views/Terminos';
 import Privacidad from './views/Politicas';
 import Cookie from './views/Cookies';
 import error404 from './componentes/Error404';
-import Registro from './componentes/Registro';
-import Recuperacion from './componentes/Recuperacion';
+import Registro from './views/Registro';
+import Recuperacion from './views/Recuperacion';
 import ResetPassword from './componentes/ResetPass';
 import Usuarios from './views/Usuarios';
 import { AuthContextProvider } from './Auth/AuthProvider';
 import { CSPMetaTag } from './CSP/CspMetaTag';
 function App() {
-  return (
+  return (  
     <AuthContextProvider>
           <BrowserRouter>
             <CSPMetaTag/>

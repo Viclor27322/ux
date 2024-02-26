@@ -1,51 +1,61 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Logo from '../img/CirupieD.png';
-import { useNavigate} from 'react-router-dom';
-import ReCAPTCHA from "react-google-recaptcha";
-import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from './comInput';
+import Swal from 'sweetalert2';
+import md5 from 'md5';
+
 
 export default function Registro() {
     const history = useNavigate();
-    const [nombre, cambiarNombre] = useState({campo:'',valido: null});
-    const [correo, cambiarCorreo] = useState({campo:'',valido: null});
-    const [pass, cambiarPass] = useState({campo:'',valido: null});
-    const [Telefono, cambiarTelefono] = useState({campo:'',valido: null});
-    const [formularioValido, cambiarFormularioValido] = useState('');
-    const [mensajeError, setMensajeError] = useState('');
-    const [registroValido, cambiarRegistroValido] =useState('');
+    const [nombre, cambiarNombre] = useState({ campo: '', valido: null });
+    const [correo, cambiarCorreo] = useState({ campo: '', valido: null });
+    const [pass, cambiarPass] = useState({ campo: '', valido: null });
+    const [Telefono, cambiarTelefono] = useState({ campo: '', valido: null });
+    const [mostrarPass, setMostrarPass] = useState(false);
+    const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
     const expresiones = {
-        usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-        password: /^.{4,12}$/, // 4 a 12 digitos.
+        usuario: /^[a-zA-Z0-9\_\-]{4,16}$/,
+        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        password: /^.{4,12}$/,
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        telefono: /^\d{10}$/ // 7 a 14 numeros.
+        telefono: /^\d{10}$/
     }
 
-    const captcha = useRef(null); 
+    const toggleMostrarPass = () => {
+        setMostrarPass(!mostrarPass);
+    };
 
     const onChange = () => {
-       if(captcha.current.getValue()){
-            setMensajeError('');
-            cambiarFormularioValido('');
-       }
+
     }
 
-    const submit = async (e)=> {
+    const handleAceptaTerminos = () => {
+        setAceptaTerminos(!aceptaTerminos);
+    };
+
+    const submit = async (e) => {
         e.preventDefault();
-        /* if(captcha.current.getValue()){
-            setMensajeError('');
-       }else{
-            setMensajeError('Verifica el valor del captcha');
-       } */
-        if(
+
+        if (!aceptaTerminos) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Debes aceptar los términos y condiciones.',
+            });
+            return;
+        }
+
+        if (
             nombre.valido === 'true' &&
             correo.valido === 'true' &&
             pass.valido === 'true' &&
-            Telefono.valido == 'true'
-        ){
+            Telefono.valido === 'true'
+        ) {
             try {
+                const hashedPassword = md5(pass.campo);
+                console.log("passs: "+ hashedPassword);
                 const response = await fetch('http://localhost:3001/api/users', {
                     method: 'POST',
                     headers: {
@@ -54,50 +64,43 @@ export default function Registro() {
                     body: JSON.stringify({
                         Nombre: nombre.campo,
                         Correo: correo.campo,
-                        Password: pass.campo,
+                        Pass: hashedPassword,
+                        Registro_Pass: new Date(),
                         Telefono: Telefono.campo
                     }),
                 });
-    
-                const data = await response.json();
-    
-                if (response.ok) {
-                    // Aquí puedes manejar la respuesta exitosa, por ejemplo, redirigir al usuario a otra página
-                    console.log('Registro exitoso', data);/* 
-                    cambiarRegistroValido('Registro exitoso ahora solo falta validar tu correo'); */
-                     history('/Login');
-                    /* const enviado = await fetch('http://localhost:3001/api/sendLogin',{
-                        method: 'POST',
-                        headers:{
-                            'Content-Type':'application/json',
-                        },
-                        body: JSON.stringify({
-                            Token: data.randomCode,
-                            Correo: correo.campo
-                        }),
-                    });
-                    const datas = await enviado.json()
-                    if(!enviado.ok){
-                        setMensajeError(datas.msg);
-                    } */
-                    
 
+                const data = await response.json();
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Registro exitoso!',
+                        text: 'Ahora puedes iniciar sesión.',
+                    }).then(() => {
+                        history('/Login');
+                    });
                 } else {
-                    // Aquí puedes manejar la respuesta con error, por ejemplo, mostrar un mensaje al usuario
-                    console.error('Error en el registro:', data.msg);
-                    setMensajeError(data.msg);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.msg,
+                    });
                 }
             } catch (error) {
-                console.error('Error en la solicitud:', error);
-                setMensajeError('Error al realizar el registro.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Error al realizar el registro.',
+                });
             }
-        }else{
-            cambiarFormularioValido('Por favor llenar el formulario correctamente');
-            console.log(nombre.campo, nombre.valido);
-            console.log(correo.campo,correo.valido);
-            console.log(pass.campo, pass.valido);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor, llena todos los campos correctamente.',
+            });
         }
-        
     }
 
     return (
@@ -123,6 +126,16 @@ export default function Registro() {
                                     onChange={onChange}
                                 />
                                 <Input
+                                    estado={Telefono}
+                                    cambiarEstado={cambiarTelefono}
+                                    tipo="tel"
+                                    label="Telefono"
+                                    placeholder="Ingresa tu numero de telefono"
+                                    name="telefono"
+                                    leyendaError="Asegurate de agregar un numero de telefono correcto"
+                                    expresionRegular={expresiones.telefono}
+                                />
+                                <Input
                                     estado={correo}
                                     cambiarEstado={cambiarCorreo}
                                     tipo="email"
@@ -136,48 +149,38 @@ export default function Registro() {
                                 <Input
                                     estado={pass}
                                     cambiarEstado={cambiarPass}
-                                    tipo="password"
+                                    tipo={mostrarPass ? "text" : "password"}
                                     label="Contraseña"
-                                    placeholder="Ingresa la contaseña"
+                                    placeholder="Ingresa la contraseña"
                                     name="pass"
-                                    leyendaError="La contraseña debe contener de 4 a 12 digitos"
+                                    leyendaError="La contraseña debe tener entre 4 y 12 caracteres"
                                     expresionRegular={expresiones.password}
-                                
+                                    onChange={onChange}
                                 />
-                                 <Input
-                                    estado={Telefono}
-                                    cambiarEstado={cambiarTelefono}
-                                    tipo="tel"
-                                    label="Telefono"
-                                    placeholder="Ingresa tu numero de telefono"
-                                    name="telefono"
-                                    leyendaError="Asegurate de agregar un numero de telefono correcto"
-                                    expresionRegular={expresiones.telefono}
-                                
-                                />
-                                
-                                <div className="recaptcha pb-3">
-                                    <ReCAPTCHA
-                                        ref={captcha}
-                                        sitekey="6Le1clcpAAAAACoTgKJ-IcXfNhD3AGSEMFM-HPA3"
-                                        onChange={onChange}
+                                <button
+                                    className="btn btn-secondary"
+                                    type="button"
+                                    onClick={toggleMostrarPass}
+                                >
+                                    {mostrarPass ? "Ocultar" : "Mostrar"}
+                                </button>
+                                <div className="form-check mt-2">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="aceptaTerminos"
+                                        checked={aceptaTerminos}
+                                        onChange={handleAceptaTerminos}
                                     />
-                                </div>
-                                <div className="text-danger">
-                                        {mensajeError}
-                                        {formularioValido}
-                                </div>
-                                <div className="text-success">
-                                        {registroValido}
+                                    <label className="form-check-label" htmlFor="aceptaTerminos">
+                                        Acepto los términos y condiciones
+                                    </label>
                                 </div>
                                 <div className="text-center">
                                     <button type="submit" className="btn btn-primary btn-block ">Registro</button>
                                     <a ></a>
                                 </div>
-                                
-                                
                             </form>
-                            
                         </div>
                     </div>
                 </div>

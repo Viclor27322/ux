@@ -2,23 +2,15 @@ import React, { useState} from "react";
 import Logo from '../img/CirupieD.png';
 import { Link , useNavigate} from 'react-router-dom';
 import Input from './comInput';
+import Swal from 'sweetalert2';
 
 export default function Recuperacion() {
     const history = useNavigate();
     const [correo, cambiarCorreo] = useState({campo:'',valido: null});
-    const [formularioValido, cambiarFormularioValido] = useState('');
-    const [mensajeError, setMensajeError] = useState('');
-    const [mensajeValidacion, setMensajeValidacion] = useState('');
 
     const expresiones = {
-        usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-        password: /^.{4,12}$/, // 4 a 12 digitos.
-        correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+        correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     }
-
-
 
     const onChange = () => {
        
@@ -41,7 +33,11 @@ export default function Recuperacion() {
     
                 if (responseExist.ok) {
                     console.log(dataExist);
-                    setMensajeValidacion('Se ha enviado un mensaje a tu correo para que restablezcas la contraseña');
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Correo enviado',
+                        text: 'Se ha enviado un mensaje a tu correo para que restablezcas la contraseña',
+                    });
                     
                     const responseSendEmail = await fetch('http://localhost:3001/api/send-email', {
                         method: 'POST',
@@ -55,26 +51,43 @@ export default function Recuperacion() {
                     
                     if (responseSendEmail.ok) {
                         console.log('El correo se envió con éxito', dataSendEmail);
-                        setMensajeValidacion('Correo de recuperación enviado');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Correo enviado',
+                            text: 'El correo de recuperación se ha enviado correctamente',
+                        });
                     } else {
-                        setMensajeValidacion('');
-                        setMensajeError('Error al enviar el correo');
                         console.error('Error al enviar el correo', dataSendEmail);
-                        // Muestra un mensaje de error al usuario
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error al enviar correo',
+                            text: 'Ocurrió un error al enviar el correo de recuperación. Por favor, inténtalo de nuevo más tarde.',
+                        });
                     }
                 } else {
-                    console.error('Error en la verificación de correo:', dataExist);
-                    setMensajeError('Correo no encontrado. Por favor, verifica tu correo.');
+                    console.error('Correo no encontrado:', dataExist);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Correo no encontrado',
+                        text: 'El correo proporcionado no se encuentra en nuestra base de datos. Por favor, verifica tu correo e inténtalo de nuevo.',
+                    });
                 }
             } catch (error) {
-                console.error('Error en la solicitud:', error);
-                setMensajeError('Error al intentar recuperar la contraseña. Por favor, inténtalo de nuevo más tarde.');
+                console.error('Error al intentar recuperar la contraseña:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al recuperar contraseña',
+                    text: 'Ocurrió un error al intentar recuperar la contraseña. Por favor, inténtalo de nuevo más tarde.',
+                });
             }
         } else {
-            cambiarFormularioValido('Por favor, llena el formulario correctamente');
+            Swal.fire({
+                icon: 'error',
+                title: 'Correo inválido',
+                text: 'Por favor, ingresa un correo electrónico válido.',
+            });
         }
     };
-    
 
     return (
         <div className="container">
@@ -98,20 +111,9 @@ export default function Recuperacion() {
                                     expresionRegular={expresiones.correo}
                                     onChange={onChange}
                                 />
-                                <div className="text-danger">
-                                        {mensajeError}
-                                </div>
-                                <div className="text-danger">
-                                        {formularioValido}
-                                </div>
-                                <div className="text-success">
-                                        {mensajeValidacion}
-                                </div>
                                 <div className="text-center">
                                     <button type="submit" className="btn btn-primary btn-block ">Recuperar</button>
                                 </div>
-                                
-                                
                             </form>
                             <div className="p-2">
                                     <Link className="link" to={'/Login'}>Login</Link>

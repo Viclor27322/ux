@@ -2,6 +2,8 @@ import React, { useState, } from 'react';
 import { useParams,useNavigate } from 'react-router-dom';
 import Input from '../componentes/comInput';
 import Logo from '../img/CirupieD.png';
+import Swal from 'sweetalert2';
+import md5 from 'md5';
 
 const ResetPassword = () => {
   const history = useNavigate();
@@ -21,23 +23,28 @@ const ResetPassword = () => {
 
 
     if (password.campo === confirmPassword.campo) {
+      const hashedPassword = md5(password.campo);
       const response = await fetch(`http://localhost:3001/api/users/reset-password/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ Token, Password: password.campo }),
+        body: JSON.stringify({ Token, Pass: hashedPassword }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         console.log('Contraseña restablecida con éxito', data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Contraseña restablecida con éxito',
+      });
         history('/Login');
       } else {
         console.error('Error al restablecer la contraseña:', data);
         cambiarFormularioValido('Ha existido un error en el servidor, inténtelo más tarde');
-        // Muestra un mensaje de error al usuario
       }
     } else {
       cambiarFormularioValido('Las contraseñas deben coincidir');

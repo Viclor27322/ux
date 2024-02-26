@@ -1,78 +1,118 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import Logo from '../img/CirupieD.png';
-import { Link , useNavigate} from 'react-router-dom';
-import ReCAPTCHA from "react-google-recaptcha";
-import { useRef } from 'react';
-import Input from './comInput';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Auth/AuthProvider';
+import Input from './comInput';
+import Swal from 'sweetalert2';
+import md5 from 'md5';
 
 export default function Login() {
     const history = useNavigate();
-    const [correo, cambiarCorreo] = useState({campo:'',valido: null});
-    const [pass, cambiarPass] = useState({campo:'',valido: null});
+    const [correo, cambiarCorreo] = useState({ campo: '', valido: null });
+    const [pass, cambiarPass] = useState({ campo: '', valido: null });
     const [formularioValido, cambiarFormularioValido] = useState('');
     const [mensajeError, setMensajeError] = useState('');
     const { login } = useContext(AuthContext);
+    const [mostrarPass, setMostrarPass] = useState(false); // Estado para controlar la visibilidad de la contraseña
+    const [intentosFallidos, setIntentosFallidos] = useState(0); // Contador de intentos fallidos
 
     const expresiones = {
-        usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-        password: /^.{4,12}$/, // 4 a 12 digitos.
+        usuario: /^[a-zA-Z0-9\_\-]{4,16}$/,
+        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        password: /^.{4,12}$/,
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        telefono: /^\d{10}$/ // 10 numeros
-    }
-
-    const captcha = useRef(null); 
+        telefono: /^\d{10}$/
+    };
 
     const onChange = () => {
-       if(captcha.current.getValue()){
-            setMensajeError('');
-            cambiarFormularioValido('');
-       }
-    }
+        setMensajeError('');
+        cambiarFormularioValido('');
+    };
 
-    
-    const Onsubmit = async (e) => {
+    const toggleMostrarPass = () => {
+        setMostrarPass(!mostrarPass); // Cambia el estado de mostrarPass
+    };
+
+    const onSubmit = async (e) => {
         e.preventDefault();
-        
-        /* if (!captcha.current.getValue()) {
-            setMensajeError('Verifica el valor del captcha');
+        if (intentosFallidos >= 3) {
+            // Bloquear la cuenta
+            await bloquearCuenta();
             return;
-        } */
+        }
     
-        if (correo.valido === 'true' && pass.valido === 'true') {
-            try {
-                const response = await fetch('http://localhost:3001/api/users/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        Correo: correo.campo,
-                        Password: pass.campo,
-                    }),
+        if (!correo.campo || !pass.campo || correo.campo === '' || pass.campo === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Asegúrate de proporcionar correctamente el correo y contraseña',
+            });
+            return;
+        }
+    
+        try {
+            const hashedPassword = md5(pass.campo);
+            const response = await fetch('http://localhost:3001/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Correo: correo.campo,
+                    Pass: hashedPassword,
+                }),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                console.log('Inicio de sesión exitoso:', data);
+                const user = data;
+                login(user);
+                history('/Ad');
+            } else {
+                console.error('Error en el inicio de sesión:', data);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.msg,
                 });
-    
-                const data = await response.json();
-    
-                if (response.ok) {
-                    // Aquí puedes manejar la respuesta exitosa, por ejemplo, redirigir al usuario a otra página
-                    console.log('Inicio de sesión exitoso:', data);
-                    const user = data;
-                    login(user);
-                    history('/Ad');
-
-                } else {
-                    // Aquí puedes manejar la respuesta con error, por ejemplo, mostrar un mensaje al usuario
-                    console.error('Error en el inicio de sesión:', data);
-                    setMensajeError('Credenciales incorrectas. Por favor, verifica tu correo y contraseña.');
-                }
-            } catch (error) {
-                console.error('Error en la solicitud:', error);
-                setMensajeError('Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.');
             }
-        } else {
-            cambiarFormularioValido('Por favor llenar el formulario correctamente');
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error interno del servidor. Por favor, inténtalo de nuevo más tarde.',
+            });
+        }
+    };
+    const bloquearCuenta = async () => {
+        try {
+
+            await fetch('http://localhost:3001/api/users/bloquearCuenta', {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json',
+                 },
+                 body: JSON.stringify({
+                     Correo: correo.campo,
+                 }),
+             });
+
+            // Muestra un mensaje al usuario indicando que la cuenta ha sido bloqueada
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Se ha excedido el límite de intentos fallidos. Tu cuenta ha sido bloqueada. Por favor, contacta al administrador para obtener ayuda.',
+            });
+        } catch (error) {
+            console.error('Error al bloquear la cuenta:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error al bloquear la cuenta. Por favor, inténtalo de nuevo más tarde.',
+            });
         }
     };
     
@@ -85,53 +125,51 @@ export default function Login() {
                         <div className="d-flex justify-content-center align-items-center pb-3">
                             <img src={Logo} alt="" width="250" height="200" className="r-50" />
                         </div>
-
                         <div className="card-body">
-                            <form className="form" onSubmit={Onsubmit}>
+                            <form className="form" onSubmit={onSubmit}>
                                 <Input
                                     estado={correo}
                                     cambiarEstado={cambiarCorreo}
                                     tipo="email"
                                     label="Correo Electrónico"
-                                    placeholder="Ingresa el correo electronico"
+                                    placeholder="Ingresa el correo electrónico"
                                     name="correo"
-                                    leyendaError="El correo debe de ser un correo valido"
+                                    leyendaError="El correo debe ser válido"
                                     expresionRegular={expresiones.correo}
                                     onChange={onChange}
                                 />
-                                <Input
-                                    estado={pass}
-                                    cambiarEstado={cambiarPass}
-                                    tipo="password"
-                                    label="Contraseña"
-                                    placeholder="Ingresa la contaseña"
-                                    name="pass"
-                                    leyendaError="La contraseña debe contener de 4 a 12 digitos"
-                                    expresionRegular={expresiones.password}
                                 
-                                />
-                                {/* <div className="recaptcha pb-3">
-                                    <ReCAPTCHA
-                                        ref={captcha}
-                                        sitekey="6Le1clcpAAAAACoTgKJ-IcXfNhD3AGSEMFM-HPA3"
+                                <Input
+                                        estado={pass}
+                                        cambiarEstado={cambiarPass}
+                                        tipo={mostrarPass ? "text" : "password"} // Utiliza el estado de mostrarPass para definir el tipo de input
+                                        label="Contraseña"
+                                        placeholder="Ingresa la contraseña"
+                                        name="pass"
+                                        leyendaError="La contraseña debe tener entre 4 y 12 caracteres"
+                                        expresionRegular={expresiones.password}
                                         onChange={onChange}
                                     />
-                                </div> */}
+                                <button
+                                        className="btn btn-secondary "
+                                        type="button"
+                                        onClick={toggleMostrarPass} // Al hacer clic, cambia el estado de mostrarPass
+                                    >
+                                    {mostrarPass ? "Ocultar" : "Mostrar"}
+                                    </button>
                                 <div className="text-danger">
-                                        {mensajeError}
+                                    {mensajeError}
                                 </div>
                                 <div className="text-danger">
-                                        {formularioValido}
+                                    {formularioValido}
                                 </div>
                                 <div className="text-center">
-                                    <button type="submit" className="btn btn-primary btn-block ">Iniciar sesión</button>
+                                    <button type="submit" className="btn btn-primary btn-block">Iniciar sesión</button>
                                 </div>
-                                
-                                
                             </form>
                             <div className="p-2">
-                                    <Link className="link" to={'/Recuperacion'}>Recuperacion de contraseña</Link>
-                                </div>
+                                <Link className="link" to={'/Recuperacion'}>Recuperación de contraseña</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
