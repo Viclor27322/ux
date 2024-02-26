@@ -1,27 +1,14 @@
-name: Test Automation
-
-on:
-  push:
-    branches:
-      - master 
+name: End-to-End Tests
+on: [push]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
+    name: Run TestCafe Tests
+    runs-on: windows-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}  
-
-    - name: Use Node.js 20
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-
-    - name: Install Dependencies
-      run: npm install  
-
-    - name: Run TestCafe
-      run: npx testcafe 'chrome:headless' tests.js
+      - name: Check out the repository
+        uses: actions/checkout@v1
+      - name: Run tests
+        uses: DevExpress/testcafe-action@latest
+        with:
+            args: "chrome tests.js -s takeOnFails=true -q -c 3"
