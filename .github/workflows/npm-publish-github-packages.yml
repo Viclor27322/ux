@@ -1,0 +1,20 @@
+name: Test Automation
+
+on:
+  push:
+    branches:
+      - master 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: npm install  
+
+    - name: Run TestCafe
+      run: npx testcafe 'chrome:headless' tests.js 
