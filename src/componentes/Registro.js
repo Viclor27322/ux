@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from './comInput';
 import Swal from 'sweetalert2';
 import md5 from 'md5';
+import blacklistedPasswords from '../Auth/listanegra'
 
 
 export default function Registro() {
@@ -34,6 +35,9 @@ export default function Registro() {
     const handleAceptaTerminos = () => {
         setAceptaTerminos(!aceptaTerminos);
     };
+    function isPasswordBlacklisted(password) {
+        return blacklistedPasswords.includes(password.toLowerCase()); // Verifica si la contraseña está en la lista negra, convirtiendo todo a minúsculas para hacer la comparación insensible a mayúsculas y minúsculas
+      }
 
     const submit = async (e) => {
         e.preventDefault();
@@ -45,7 +49,15 @@ export default function Registro() {
                 text: 'Debes aceptar los términos y condiciones.',
             });
             return;
-        }
+        }        
+        if(isPasswordBlacklisted(password)){
+            Swal.fire({
+                icon: 'error',
+                title: 'Password debil',
+                text: 'La contraseña que has elegido es débil. Por favor, elige una más segura.',
+            });
+            return;
+        }        
 
         if (
             nombre.valido === 'true' &&
@@ -56,7 +68,7 @@ export default function Registro() {
             try {
                 const hashedPassword = md5(pass.campo);
                 console.log("passs: "+ hashedPassword);
-                const response = await fetch('http://localhost:3001/api/users', {
+                const response = await fetch('https://rest-api2-three.vercel.app/api/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

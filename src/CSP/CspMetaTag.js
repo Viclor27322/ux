@@ -11,7 +11,7 @@ export function CSPMetaTag() {
       style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/antd.css;
       font-src 'self' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/fonts/;
       img-src 'self'; 
-      connect-src 'self' http://localhost:3001 https://www.google-analytics.com;
+      connect-src 'self' http://localhost:3001 https://www.google-analytics.com https://rest-api2-three.vercel.app;
       frame-src 'self' https://www.google.com;
       form-action 'self';
     `;

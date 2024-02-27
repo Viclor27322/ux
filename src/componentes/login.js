@@ -52,7 +52,7 @@ export default function Login() {
     
         try {
             const hashedPassword = md5(pass.campo);
-            const response = await fetch('http://localhost:3001/api/users/login', {
+            const response = await fetch('https://rest-api2-three.vercel.app/api/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export default function Login() {
     const bloquearCuenta = async () => {
         try {
 
-            await fetch('http://localhost:3001/api/users/bloquearCuenta', {
+            await fetch('https://rest-api2-three.vercel.app/api/users/bloquearCuenta', {
                  method: 'POST',
                  headers: {
                      'Content-Type': 'application/json',
