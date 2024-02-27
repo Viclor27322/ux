@@ -50,7 +50,7 @@ export default function Registro() {
             });
             return;
         }        
-        if(isPasswordBlacklisted(password)){
+        if(isPasswordBlacklisted(pass.campo)){
             Swal.fire({
                 icon: 'error',
                 title: 'Password debil',

@@ -42,6 +42,7 @@ const ComponenteInput = ({
         onChange={onChange}
         onKeyUp={validacion}
         onBlur={validacion}
+        onKeyPress={validacion} 
         valido={estado.valido}
         required
       />

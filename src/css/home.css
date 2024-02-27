@@ -1,0 +1,6 @@
+/* Estilo para todas las imágenes en el carousel */
+.carousel-item img {
+    width: 100%; /* Ancho del 100% del contenedor padre */
+    height: 600px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Mantener la relación de aspecto y recortar la imagen para llenar */
+}

@@ -1,12 +1,44 @@
 import React from "react";
-
 import Logo from '../img/CirupieD.png';
-import Breadcrumbs from '../componentes/Migas';
+import slider1 from '../img/slider-1.jpg';
+import slider2 from '../img/slider-4.jpg';
+import slider3 from '../img/slider-5.jpg';
+import homecss from '../css/home.css';
 
 export default function Inicio() {
     return (
-        
-        <div className="container pt-5">
+        <div>
+            <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
+                <div className="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                        <img src={slider1} className="d-block " alt="..." />
+
+                    </div>
+                    <div className="carousel-item">
+                        <img src={slider2} className="d-block " alt="..." />
+                    </div>
+                    <div className="carousel-item">
+                        <img src={slider3} className="d-block " alt="..." />
+
+                    </div>
+                </div>
+
+                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Previous</span>
+                </button>
+                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div className="container pt-5">
+            
             <div className="row">
                 <div className="col-md-6 order-2 order-md-1 ">
                     <div className="pb-3">
@@ -27,22 +59,22 @@ export default function Inicio() {
             </div>
             <div className="ps-5 pe-5">
                 <div className="pt-5 pe-5">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="card ">
-                                <div class="card-body">
-                                    <h3 class="card-title text-primary ">Mision</h3>
-                                    <p class="card-text ">Proporcinar un servicio de atencion integral con la finalidad de prevenir, detectar, diagnosticar, tratar y rehabilitar a los pacientes con pie diabetico
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <div className="card ">
+                                <div className="card-body">
+                                    <h3 className="card-title text-primary ">Mision</h3>
+                                    <p className="card-text ">Proporcinar un servicio de atencion integral con la finalidad de prevenir, detectar, diagnosticar, tratar y rehabilitar a los pacientes con pie diabetico
                                     ..</p>
                                     
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 ">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <h3 class="card-title text-primary">Vision</h3>
-                                    <p class="card-text">Preservar la integridad de los pacientes que cursen con pie diabetico de acuerdo a cada caso y crear un cambio consciente en los pacientes y su entorno </p>
+                        <div className="col-sm-6 ">
+                            <div className="card bg-light">
+                                <div className="card-body">
+                                    <h3 className="card-title text-primary">Vision</h3>
+                                    <p className="card-text">Preservar la integridad de los pacientes que cursen con pie diabetico de acuerdo a cada caso y crear un cambio consciente en los pacientes y su entorno </p>
                                 </div>
                             </div>
                         </div>
@@ -54,6 +86,8 @@ export default function Inicio() {
                 <iframe src="https://www.google.com.mx/maps/place/Uniformes+Mi+Enfermera+Favorita/@21.143713,-98.4231253,18.79z/data=!4m6!3m5!1s0x85d7276c67e734b7:0x1b50d75f53f760a5!8m2!3d21.1438829!4d-98.4233404!16s%2Fg%2F11jt18jjqx?entry=ttu"></iframe>
             </div>
         </div>
+        </div>
+        
     );
 }
 
