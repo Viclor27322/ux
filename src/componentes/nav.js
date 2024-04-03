@@ -6,10 +6,10 @@ import Chatbot from "./chatbot";
 
 export default function Nav(){
     return(
-        <div id="">
+        <div className="">
             
-           <nav className="navbar navbar-light bg-light p-0 ">
-                <div className="container-fluid ">
+           <nav className="navbar navbar-light bg-light ">
+                <div className="container ">
                 <a className="navbar-brand" href="#">
                         <img src={Logo} alt="" width="100" height="40" className="d-inline-block align-text-top" />
                         

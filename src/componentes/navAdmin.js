@@ -7,15 +7,16 @@ import { AuthContext } from '../Auth/AuthProvider';
 export default function NavbarAdmin() {
     const { isAuthenticated,logout,user } = useContext(AuthContext);
     const history = useNavigate();
-    useEffect(()=>{
+    /* useEffect(()=>{
         if(!isAuthenticated){
             history('/');
         }
-    })
+    }) */
+
     const Salir=()=>{
         logout();
         history('/login');
-    }
+    } 
     return (
         <div className='nav-color'>
             
@@ -96,9 +97,10 @@ export default function NavbarAdmin() {
                                 )
                            ):null}
 
-                           <input type="button" className="btn btn-success me-2" onClick={Salir} value="Logout"/>
-                        
+                        <input type="button" className="btn btn-success me-2" onClick={Salir} value="Logout"/>
+                         
                         </ul>
+                        
                     </div>
                 </div>
             </nav>

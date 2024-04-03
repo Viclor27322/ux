@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
@@ -8,6 +8,7 @@ import ComponenteInput from './comInput';
 const localizer = momentLocalizer(moment);
 
 export default function Citas() {
+  const [citas, setCitas] = useState([]); 
   const [title, setTitle] = useState({ campo: "", valido: null });
   const [start, setStart] = useState({ campo: "", valido: null });
   const [end, setEnd] = useState({ campo: "", valido: null });
@@ -38,6 +39,35 @@ export default function Citas() {
     }
   };
 
+  useEffect(() => {
+    // Llamar a la API para obtener las citas
+    obtenerCitas();
+  }, []);
+
+  const obtenerCitas = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/citas');
+      const data = await response.json();
+      setCitas(data);
+    } catch (error) {
+      console.error('Error al obtener citas:', error);
+    }
+  };
+
+  const eventos = citas.map(cita => ({
+    id: cita.IdUser,
+    title: cita.IdPaciente,
+    start: new Date(cita.HorarioInicio),
+    end: new Date(cita.HoraFin),
+    description: cita.Descripcion,
+    style: {
+      backgroundColor: cita.Estado === 0 ? 'red' : 'green', // Color de fondo basado en el estado
+      color: 'white', // Color del texto del evento
+      borderColor: 'black' // Color del borde del evento
+    }
+  }));
+
+  
   return (
     <div className="container">
       <div className="row">

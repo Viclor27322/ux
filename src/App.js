@@ -26,6 +26,7 @@ import ResetPassword from './componentes/ResetPass';
 import Usuarios from './views/Usuarios';
 import { AuthContextProvider } from './Auth/AuthProvider';
 import { CSPMetaTag } from './CSP/CspMetaTag';
+import RecuperacionPreguntaa from './views/RecuperacionPregunta';
 function App() {
   return (  
     <AuthContextProvider>
@@ -50,6 +51,7 @@ function App() {
               <Route path='/Registro' Component={Registro}></Route>
               <Route path='/Recuperacion' Component={Recuperacion}></Route>
               <Route path='/reset-password/:Token' Component={ResetPassword}></Route>
+              <Route path='/RecuperacionPregunta' Component={RecuperacionPreguntaa}></Route>
               <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
             </Routes>
           </BrowserRouter>

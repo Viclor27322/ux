@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Input from './comInput';
 import Swal from 'sweetalert2';
 import md5 from 'md5';
-import blacklistedPasswords from '../Auth/listanegra'
+import blacklistedPasswords from '../Auth/listanegra';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Registro() {
@@ -13,17 +15,22 @@ export default function Registro() {
     const [correo, cambiarCorreo] = useState({ campo: '', valido: null });
     const [pass, cambiarPass] = useState({ campo: '', valido: null });
     const [Telefono, cambiarTelefono] = useState({ campo: '', valido: null });
+    const [respuesta, cambiarRespuesta] = useState({campo:'', valido: null});
+    const [preguntaSecreta, setPreguntaSecreta] = useState(''); 
     const [mostrarPass, setMostrarPass] = useState(false);
     const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
     const expresiones = {
         usuario: /^[a-zA-Z0-9\_\-]{4,16}$/,
         nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        respuesta: /^[a-zA-ZÀ-ÿ\s]{1,250}$/,
         password: /^.{4,12}$/,
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
         telefono: /^\d{10}$/
     }
-
+    const handleSelectChange = (event) => {
+        setPreguntaSecreta(event.target.value); 
+    };
     const toggleMostrarPass = () => {
         setMostrarPass(!mostrarPass);
     };
@@ -68,7 +75,7 @@ export default function Registro() {
             try {
                 const hashedPassword = md5(pass.campo);
                 console.log("passs: "+ hashedPassword);
-                const response = await fetch('https://rest-api2-three.vercel.app/api/users', {
+                const response = await fetch('http://localhost:3001/api/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -78,7 +85,9 @@ export default function Registro() {
                         Correo: correo.campo,
                         Pass: hashedPassword,
                         Registro_Pass: new Date(),
-                        Telefono: Telefono.campo
+                        Telefono: Telefono.campo,
+                        IdPregunta: parseInt(preguntaSecreta),
+                        Respuesta: respuesta.campo
                     }),
                 });
 
@@ -158,24 +167,49 @@ export default function Registro() {
                                     expresionRegular={expresiones.correo}
                                     onChange={onChange}
                                 />
+                               <div className="input-group mb-3 align-items-end">
+                                    <Input
+                                        estado={pass}
+                                        cambiarEstado={cambiarPass}
+                                        tipo={mostrarPass ? "text" : "password"}
+                                        label="Contraseña"
+                                        placeholder="Ingresa la contraseña"
+                                        name="pass"
+                                        leyendaError="La contraseña debe tener entre 4 y 12 caracteres"
+                                        expresionRegular={expresiones.password}
+                                        onChange={onChange}
+                                    />
+                                    <div className="input-group-append">
+                                        <button
+                                            className="input-group-text mb-3"
+                                            type="button"
+                                            onClick={toggleMostrarPass}
+                                        >
+                                            <FontAwesomeIcon icon={mostrarPass ? faEye : faEyeSlash} />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                
+                                <label>Pregunta secreta</label>
+                                <select className="form-select" id="preguntaSecreta" value={preguntaSecreta} onChange={handleSelectChange}>
+                                    <option value="">Selecciona una pregunta secreta</option>
+                                    <option value="1">¿Cuál es tu color favorito?</option>
+                                    <option value="2">¿Cómo se llamaba tu última mascota?</option>
+                                    <option value="3">¿Cuál es tu lugar favorito?</option>
+                                    <option value="4">¿Cuál es tu comida favorita?</option>
+                                </select>
                                 <Input
-                                    estado={pass}
-                                    cambiarEstado={cambiarPass}
-                                    tipo={mostrarPass ? "text" : "password"}
-                                    label="Contraseña"
-                                    placeholder="Ingresa la contraseña"
-                                    name="pass"
-                                    leyendaError="La contraseña debe tener entre 4 y 12 caracteres"
-                                    expresionRegular={expresiones.password}
+                                    estado={respuesta}
+                                    cambiarEstado={cambiarRespuesta}
+                                    tipo="text"
+                                    label="Respuesta"
+                                    placeholder="Ingresa tu respuesta"
+                                    name="respuesta"
+                                    leyendaError="La respuesta esta vacia ingrese tu respuesta"
+                                    expresionRegular={expresiones.respuesta}
                                     onChange={onChange}
                                 />
-                                <button
-                                    className="btn btn-secondary"
-                                    type="button"
-                                    onClick={toggleMostrarPass}
-                                >
-                                    {mostrarPass ? "Ocultar" : "Mostrar"}
-                                </button>
                                 <div className="form-check mt-2">
                                     <input
                                         className="form-check-input"

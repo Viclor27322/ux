@@ -5,6 +5,8 @@ import { AuthContext } from '../Auth/AuthProvider';
 import Input from './comInput';
 import Swal from 'sweetalert2';
 import md5 from 'md5';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login() {
     const history = useNavigate();
@@ -52,7 +54,7 @@ export default function Login() {
     
         try {
             const hashedPassword = md5(pass.campo);
-            const response = await fetch('https://rest-api2-three.vercel.app/api/users/login', {
+            const response = await fetch('http://localhost:3001/api/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -150,13 +152,15 @@ export default function Login() {
                                         expresionRegular={expresiones.password}
                                         onChange={onChange}
                                     />
-                                <button
-                                        className="btn btn-secondary "
-                                        type="button"
-                                        onClick={toggleMostrarPass} // Al hacer clic, cambia el estado de mostrarPass
-                                    >
-                                    {mostrarPass ? "Ocultar" : "Mostrar"}
-                                    </button>
+                                <div className="input-group-append">
+                                        <button
+                                            className="input-group-text mb-3"
+                                            type="button"
+                                            onClick={toggleMostrarPass}
+                                        >
+                                            <FontAwesomeIcon icon={mostrarPass ? faEye : faEyeSlash} />
+                                        </button>
+                                    </div>
                                 <div className="text-danger">
                                     {mensajeError}
                                 </div>
