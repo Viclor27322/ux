@@ -65,71 +65,12 @@ export default function Paciente() {
     return (
         <div className="container mt-4">
             <h1 className="text-center">Pacientes</h1>
-            <div className="row mt-4 d-flex justify-content-between">
-                {/* Formulario para agregar un nuevo paciente */}
-                <form className="form" onSubmit={handleSubmit}>
-                    <Input
-                        estado={nombre}
-                        cambiarEstado={cambiarNombre}
-                        tipo="text"
-                        label="Nombre del usuario"
-                        placeholder="Ingresa el nombre"
-                        name="nombre"
-                        leyendaError="El nombre solo puede contener letras"
-                        expresionRegular={expresiones.nombre}
-                    />
-                    <Input
-                        estado={apellidoP}
-                        cambiarEstado={cambiarApellidoP}
-                        tipo="text"
-                        label="Apellido Paterno"
-                        placeholder="Apellido Paterno"
-                        name="apellidoP"
-                        leyendaError="El apellido solo puede contener letras"
-                        expresionRegular={expresiones.nombre}
-                    />
-                    <Input
-                        estado={apellidoM}
-                        cambiarEstado={cambiarApellidoM}
-                        tipo="text"
-                        label="Apellido Materno"
-                        placeholder="Apellido Materno"
-                        name="apellidoM"
-                        leyendaError="El apellido solo puede contener letras"
-                        expresionRegular={expresiones.nombre}
-                    />
-                    <Input
-                        estado={correo}
-                        cambiarEstado={cambiarCorreo}
-                        tipo="email"
-                        label="Correo Electrónico"
-                        placeholder="Correo Electrónico"
-                        name="correo"
-                        leyendaError="Asegurate de agregar un correo correcto"
-                        expresionRegular={expresiones.correo}
-                    />
-                    <Input
-                        estado={Telefono}
-                        cambiarEstado={cambiarTelefono}
-                        tipo="tel"
-                        label="Teléfono"
-                        placeholder="Teléfono"
-                        name="telefono"
-                        leyendaError="Asegurate de agregar un numero de telefono correcto"
-                        expresionRegular={expresiones.telefono}
-                    />
-                    <Input
-                        estado={fechaNacimiento}
-                        cambiarEstado={cambiarFechaNacimiento}
-                        tipo="date"
-                        label="Fecha de Nacimiento"
-                        placeholder="Fecha de Nacimiento"
-                        name="fechaNacimiento"
-                        expresionRegular={expresiones.fecha}
-                        leyendaError="Asegurate de agregar una fecha de nacimiento"
-                    />
-                    <button type="submit" className="btn btn-primary">Agregar Paciente</button>
-                </form>
+            <div className="row mt-4">
+                <div className="col text-center">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Agregar nuevo paciente
+                    </button>   
+                </div>
             </div>
             <div className="row mt-4">
                 {pacientes.map(paciente => (
@@ -145,6 +86,84 @@ export default function Paciente() {
                         </div>
                     </div>
                 ))}
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form className="form" onSubmit={handleSubmit}>
+                            <Input
+                                estado={nombre}
+                                cambiarEstado={cambiarNombre}
+                                tipo="text"
+                                label="Nombre del usuario"
+                                placeholder="Ingresa el nombre"
+                                name="nombre"
+                                leyendaError="El nombre solo puede contener letras"
+                                expresionRegular={expresiones.nombre}
+                            />
+                            <Input
+                                estado={apellidoP}
+                                cambiarEstado={cambiarApellidoP}
+                                tipo="text"
+                                label="Apellido Paterno"
+                                placeholder="Apellido Paterno"
+                                name="apellidoP"
+                                leyendaError="El apellido solo puede contener letras"
+                                expresionRegular={expresiones.nombre}
+                            />
+                            <Input
+                                estado={apellidoM}
+                                cambiarEstado={cambiarApellidoM}
+                                tipo="text"
+                                label="Apellido Materno"
+                                placeholder="Apellido Materno"
+                                name="apellidoM"
+                                leyendaError="El apellido solo puede contener letras"
+                                expresionRegular={expresiones.nombre}
+                            />
+                            <Input
+                                estado={correo}
+                                cambiarEstado={cambiarCorreo}
+                                tipo="email"
+                                label="Correo Electrónico"
+                                placeholder="Correo Electrónico"
+                                name="correo"
+                                leyendaError="Asegurate de agregar un correo correcto"
+                                expresionRegular={expresiones.correo}
+                            />
+                            <Input
+                                estado={Telefono}
+                                cambiarEstado={cambiarTelefono}
+                                tipo="tel"
+                                label="Teléfono"
+                                placeholder="Teléfono"
+                                name="telefono"
+                                leyendaError="Asegurate de agregar un numero de telefono correcto"
+                                expresionRegular={expresiones.telefono}
+                            />
+                            <Input
+                                estado={fechaNacimiento}
+                                cambiarEstado={cambiarFechaNacimiento}
+                                tipo="date"
+                                label="Fecha de Nacimiento"
+                                placeholder="Fecha de Nacimiento"
+                                name="fechaNacimiento"
+                                expresionRegular={expresiones.fecha}
+                                leyendaError="Asegurate de agregar una fecha de nacimiento"
+                            />
+                            <button type="submit" className="btn btn-primary">Agregar Paciente</button>
+                        </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
     );
