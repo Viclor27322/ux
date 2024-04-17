@@ -31,7 +31,7 @@ const ComponenteInput = ({
   return (
     <div className="mb-3">
       <label htmlFor={name} className="form-label">
-        {label}
+        <strong>{label}</strong>
       </label>
       <input
         type={tipo}

@@ -1,17 +1,17 @@
 import { Selector } from 'testcafe';
 
-fixture('Logins')
-    .page('https://cirupied-eight.vercel.app/Login');
+fixture('Flujo de Trabajo de Pacientes')
+    .page('http://localhost:3000/Login'); // Ajusta la URL según la dirección de tu aplicación
 
-test('Iniciar sesión con credenciales válidas', async t => {
+test('Iniciar sesión con credenciales válidas y crear un nuevo paciente', async t => {
     // Espera a que el formulario de inicio de sesión esté presente en la página
     await t.expect(Selector('.form').exists).ok();
 
-    // Ingresa el correo electrónico y la contraseña
+    // Ingresa el correo electrónico y la contraseña y envía el formulario
     await t
-        .typeText('#correo', 'correo@example.com')
-        .typeText('#pass', 'password12'); // Actualiza el selector según el atributo id de tu campo de entrada de contraseña
+        .typeText('#correo', '20210704@uthh.edu.mx') // Cambia el correo electrónico por uno válido
+        .typeText('#pass', 'victor') // Cambia la contraseña por una válida
+        .click('button[type="submit"]');
 
-    // Envía el formulario
-    await t.click('button[type="submit"]');
 });
+

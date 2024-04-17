@@ -18,6 +18,7 @@ export default function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link " to={'/Notas'}>Notas</Link>
                             </li>
+                            
                             <li className="nav-item">
                                 <Link className="nav-link " to={'/Especialistas'}>Especialistas</Link>
                             </li>
@@ -26,6 +27,9 @@ export default function Navbar() {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to={'/Contacto'}>Contactanos</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link " to={'/Citas-Disponibles'}>Agendar</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to={'/Login'}>Login</Link>

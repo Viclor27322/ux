@@ -27,6 +27,9 @@ import Usuarios from './views/Usuarios';
 import { AuthContextProvider } from './Auth/AuthProvider';
 import { CSPMetaTag } from './CSP/CspMetaTag';
 import RecuperacionPreguntaa from './views/RecuperacionPregunta';
+import CitasDisponibles from './views/citasDisponibles';
+import Mate from './componentes/mate';
+import HorariosAtencion from './views/HorariosAtencion';
 function App() {
   return (  
     <AuthContextProvider>
@@ -35,10 +38,13 @@ function App() {
             <Routes>
               <Route path="/" Component={Home}></Route>
               <Route path="/Notas" Component={Nota}></Route>
+              <Route path="/Ad/Horario" Component={HorariosAtencion}></Route>
               <Route path="/Especialistas" Component={Especialista}></Route>
               <Route path="/Ayuda" Component={Ayuda}></Route>
               <Route path="/Contacto" Component={Contacto}></Route>
+              <Route path="/Citas-Disponibles" Component={CitasDisponibles}></Route>
               <Route path="/Login" Component={Loginn}></Route>
+              <Route path="/mate" Component={Mate}></Route>
               <Route path="/Terminos" Component={Terminos}></Route>
               <Route path="/Privacidad" Component={Privacidad}></Route>
               <Route path="/Cookies" Component={Cookie}></Route>

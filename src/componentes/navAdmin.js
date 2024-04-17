@@ -7,11 +7,11 @@ import { AuthContext } from '../Auth/AuthProvider';
 export default function NavbarAdmin() {
     const { isAuthenticated,logout,user } = useContext(AuthContext);
     const history = useNavigate();
-    /* useEffect(()=>{
+     /* useEffect(()=>{
         if(!isAuthenticated){
             history('/');
         }
-    }) */
+    })    */
 
     const Salir=()=>{
         logout();
@@ -31,7 +31,7 @@ export default function NavbarAdmin() {
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             
                            {user !== null ?(
-                                user.IdRol == 1 && 2 ? (
+                                user.IdRol === 1 && 2 ? (
                                 <div className='d-flex'>   
                                 <li className="nav-item">
                                     <Link className="nav-link" to={'/Ad'}>Inicio</Link>
@@ -39,6 +39,9 @@ export default function NavbarAdmin() {
                                 
                                 <li className="nav-item">
                                     <Link className="nav-link" to={'/Ad/Citas'}>Citas</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Horario'}>Horario</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={'/Ad/Expediente'}>Expedientes</Link>
@@ -60,7 +63,7 @@ export default function NavbarAdmin() {
                                 )
                            ):null}
                             {user !== null ?(
-                                user.IdRol == 3 && 5 ? (
+                                user.IdRol === 3 && 5 ? (
                                 <div className='d-flex'>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={'/Ad'}>Inicio</Link>
@@ -77,7 +80,7 @@ export default function NavbarAdmin() {
                                 )
                            ):null}
                            {user !== null ?(
-                                user.IdRol == 4 ? (
+                                user.IdRol === 4 ? (
                                 <div className='d-flex'>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={'/Ad'}>Inicio</Link>
