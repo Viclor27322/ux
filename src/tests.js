@@ -3,7 +3,7 @@ import { Selector } from 'testcafe';
 fixture('Flujo de Trabajo de Pacientes')
     .page('http://localhost:3000/Login'); // Ajusta la URL según la dirección de tu aplicación
 
-test('Iniciar sesión con credenciales válidas y crear un nuevo paciente', async t => {
+test('Iniciar sesión con credenciales válidas ', async t => {
     // Espera a que el formulario de inicio de sesión esté presente en la página
     await t.expect(Selector('.form').exists).ok();
 
