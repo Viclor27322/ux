@@ -50,6 +50,7 @@ export default function Login() {
                 text: 'Asegúrate de proporcionar correctamente el correo y contraseña',
             });
             return;
+            
         }
     
         try {
