@@ -30,6 +30,7 @@ import RecuperacionPreguntaa from './views/RecuperacionPregunta';
 import CitasDisponibles from './views/citasDisponibles';
 import Mate from './componentes/mate';
 import HorariosAtencion from './views/HorariosAtencion';
+import ClasificacionHeridas from './views/ClasificacionHeridas';
 function App() {
   return (  
     <AuthContextProvider>
@@ -59,6 +60,7 @@ function App() {
               <Route path='/reset-password/:Token' Component={ResetPassword}></Route>
               <Route path='/RecuperacionPregunta' Component={RecuperacionPreguntaa}></Route>
               <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
+              <Route path='/Ad/Heridas' Component={ClasificacionHeridas}></Route>
             </Routes>
           </BrowserRouter>
     </AuthContextProvider>
