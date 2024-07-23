@@ -47,6 +47,9 @@ export default function NavbarAdmin() {
                                     <Link className="nav-link" to={'/Ad/Expediente'}>Expedientes</Link>
                                 </li>
                                 <li className="nav-item">
+                                    <Link className="nav-link" to={'/Ad/Heridas'}>Heridas</Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link className="nav-link" to={'/Ad/Pacientes'}>Paciente</Link>
                                 </li>
                                 <li className="nav-item">
