@@ -31,6 +31,7 @@ import CitasDisponibles from './views/citasDisponibles';
 import Mate from './componentes/mate';
 import HorariosAtencion from './views/HorariosAtencion';
 import ClasificacionHeridas from './views/ClasificacionHeridas';
+import EvaluacionSistematizada from './views/EvaluacionSitematizada';
 function App() {
   return (  
     <AuthContextProvider>
@@ -61,6 +62,7 @@ function App() {
               <Route path='/RecuperacionPregunta' Component={RecuperacionPreguntaa}></Route>
               <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
               <Route path='/Ad/Heridas' Component={ClasificacionHeridas}></Route>
+              <Route path='/Ad/Evaluacion' Component={EvaluacionSistematizada}></Route>
             </Routes>
           </BrowserRouter>
     </AuthContextProvider>
