@@ -113,7 +113,7 @@ export default function evaluacionSitematizada(){
                 <div className="col-3">
                   <div className="form-group">
                     <label htmlFor="infeccion">Atrofia</label>
-                    <input type="text" className="form-control" id="Trofismo" name="Trofismo" value={formData.infeccion} onChange={handleChange} />
+                    <input type="text" className="form-control" id="Trofismo" name="Trofismo" />
                   </div>
                 </div>
               </div>
