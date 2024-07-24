@@ -17,7 +17,7 @@ export default function Admin() {
 
   const obtenerCitas = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/citas");
+      const response = await fetch("https://rest-api2-three.vercel.app/api/citas");
       const data = await response.json();
       setCitas(data);
     } catch (error) {

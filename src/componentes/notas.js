@@ -10,7 +10,7 @@ export default function Notas() {
     }, []);
 
     const obtenerNotas = async () => {
-        fetch("http://localhost:3001/api/notas")
+        fetch("https://rest-api2-three.vercel.app/api/notas")
             .then(response => response.json())
             .then(data => setNotas(data))
             .catch(error => console.error("Error al obtener notas:", error));

@@ -49,7 +49,7 @@
         }, []);
 
         const obtenerPacientes = async () => {
-            fetch("http://localhost:3001/api/pacientes")
+            fetch("https://rest-api2-three.vercel.app/api/pacientes")
                 .then(response => response.json())
                 .then(data => setPacientes(data))
                 .catch(error => console.error("Error al obtener pacientes:", error));
@@ -66,7 +66,7 @@
         const handleSubmit = async (e) => {
             e.preventDefault();
             try {
-                const response = await fetch("http://localhost:3001/api/pacientes", {
+                const response = await fetch("https://rest-api2-three.vercel.app/api/pacientes", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -122,7 +122,7 @@
         const handleDelete = () => {
             if (window.confirm('¿Estás seguro de que deseas eliminar este paciente?')) {
                 // Llamada a la API para eliminar al paciente seleccionado
-                fetch(`http://localhost:3001/api/pacientes/${selectedPaciente.IdPaciente}`, {
+                fetch(`https://rest-api2-three.vercel.app/api/pacientes/${selectedPaciente.IdPaciente}`, {
                     method: "DELETE"
                 })
                     .then(response => {
@@ -152,7 +152,7 @@
             e.preventDefault();
 
             // Llamada a la API para actualizar los datos del paciente
-            fetch(`http://localhost:3001/api/pacientes/${selectedPaciente.IdPaciente}`, {
+            fetch(`https://rest-api2-three.vercel.app/api/pacientes/${selectedPaciente.IdPaciente}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

@@ -21,7 +21,7 @@ export default function Recuperacion() {
         
         if (correo.valido === 'true') {
             try {
-                const responseExist = await fetch('http://localhost:3001/api/emailExist/'+correo.campo, {
+                const responseExist = await fetch('https://rest-api2-three.vercel.app/api/emailExist/'+correo.campo, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export default function Recuperacion() {
                         text: 'Se ha enviado un mensaje a tu correo para que restablezcas la contraseña',
                     });
                     
-                    const responseSendEmail = await fetch('http://localhost:3001/api/send-email', {
+                    const responseSendEmail = await fetch('https://rest-api2-three.vercel.app/api/send-email', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

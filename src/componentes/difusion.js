@@ -33,7 +33,7 @@ export default function Notas() {
     }, []);
 
     const obtenerNotas = async () => {
-        fetch("http://localhost:3001/api/notas")
+        fetch("https://rest-api2-three.vercel.app/api/notas")
             .then(response => response.json())
             .then(data => setNotas(data))
             .catch(error => console.error("Error al obtener notas:", error));
@@ -43,7 +43,7 @@ export default function Notas() {
         e.preventDefault();
 
         // Llamada a la API para agregar una nueva nota
-        fetch("http://localhost:3001/api/notas", {
+        fetch("https://rest-api2-three.vercel.app/api/notas", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -82,7 +82,7 @@ export default function Notas() {
     const handleDelete = () => {
         if (window.confirm('¿Estás seguro de que deseas eliminar esta nota?')) {
             // Llamada a la API para eliminar la nota seleccionada
-            fetch(`http://localhost:3001/api/notas/${selectedNota.IdNota}`, {
+            fetch(`https://rest-api2-three.vercel.app/api/notas/${selectedNota.IdNota}`, {
                 method: "DELETE"
             })
                 .then(response => {
@@ -112,7 +112,7 @@ export default function Notas() {
         e.preventDefault();
 
         // Llamada a la API para actualizar los datos de la nota
-        fetch(`http://localhost:3001/api/notas/${selectedNota.IdNota}`, {
+        fetch(`https://rest-api2-three.vercel.app/api/notas/${selectedNota.IdNota}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

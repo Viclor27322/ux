@@ -18,7 +18,7 @@ export default function HorariosAtencion() {
 
     const obtenerHorarios = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/horarios");
+            const response = await fetch("https://rest-api2-three.vercel.app/api/horarios");
             const data = await response.json();
             setHorarios(data);
             console.log(data);
@@ -42,7 +42,7 @@ export default function HorariosAtencion() {
     const actualizarHorario = async () => {
         try {
             // Realizar la llamada a la API para actualizar el horario de atención
-            await fetch(`http://localhost:3001/api/horarios/${dia.campo}`, {
+            await fetch(`https://rest-api2-three.vercel.app/api/horarios/${dia.campo}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

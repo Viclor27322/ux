@@ -10,7 +10,7 @@ const UserTable = () => {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch('http://localhost:3001/api/users')
+    fetch('https://rest-api2-three.vercel.app/api/users')
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);

@@ -24,7 +24,7 @@ const ResetPassword = () => {
 
     if (password.campo === confirmPassword.campo) {
       const hashedPassword = md5(password.campo);
-      const response = await fetch(`http://localhost:3001/api/users/reset-password/`, {
+      const response = await fetch(`https://rest-api2-three.vercel.app/api/users/reset-password/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
