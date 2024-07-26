@@ -41,7 +41,7 @@ export default function EditarClasificacion() {
 
     const fetchDatos = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/clasificacion_heridas/${IdClasificacionHeridas}`);
+            const response = await fetch(`https://rest-api2-three.vercel.app/api/clasificacion_heridas/${IdClasificacionHeridas}`);
             if (!response.ok) {
                 throw new Error('Datos no encontrados');
             }
@@ -104,7 +104,7 @@ export default function EditarClasificacion() {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:3001/api/clasificacion_heridas/${IdClasificacionHeridas}`, {
+            const response = await fetch(`https://rest-api2-three.vercel.app/api/clasificacion_heridas/${IdClasificacionHeridas}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ export default function EditarClasificacion() {
     return (
         <div className="container mt-5">
            
-            <a className="btn btn-secondary" href={`http://localhost:3000/Ad/RegistroHeridas`}>
+            <a className="btn btn-secondary" href={`https://cirupied-eight.vercel.app/Ad/RegistroHeridas`}>
             Registros
         </a>
  <div  id="form-container">
