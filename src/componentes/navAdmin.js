@@ -7,11 +7,11 @@ import { AuthContext } from '../Auth/AuthProvider';
 export default function NavbarAdmin() {
     const { isAuthenticated,logout,user } = useContext(AuthContext);
     const history = useNavigate();
-     /* useEffect(()=>{
+     useEffect(()=>{
         if(!isAuthenticated){
             history('/');
         }
-    })    */
+    })   
 
     const Salir=()=>{
         logout();
@@ -47,7 +47,7 @@ export default function NavbarAdmin() {
                                     <Link className="nav-link" to={'/Ad/Expediente'}>Expedientes</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={'/Ad/Heridas'}>Heridas</Link>
+                                    <Link className="nav-link" to={'/Ad/RegistroHeridas'}>Heridas</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={'/Ad/Pacientes'}>Paciente</Link>
@@ -60,9 +60,33 @@ export default function NavbarAdmin() {
                                 </li>
                             </div>
                                 ):(
-                                    <div>
-
-                                    </div>
+                                    <div className='d-flex'>   
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad'}>Inicio</Link>
+                                    </li>
+                                    
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad/Citas'}>Citas</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad/Horario'}>Horario</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad/Expediente'}>Expedientes</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad/RegistroHeridas'}>Heridas</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad/Pacientes'}>Paciente</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad/Difusion'}>Difusion</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/Ad/ListaUser'}>Usuarios</Link>
+                                    </li>
+                                </div>
                                 )
                            ):null}
                             {user !== null ?(

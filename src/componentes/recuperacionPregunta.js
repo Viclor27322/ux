@@ -26,7 +26,7 @@ const RecuperacionPregunta = () => {
 
     if (email.campo && pregunta && respuesta.campo) {
       try {
-        const response = await fetch('http://localhost:3001/api/users/recuperacionpregunta', {
+        const response = await fetch('https://rest-api2-three.vercel.app/api/users/recuperacionpregunta', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const RecuperacionPregunta = () => {
     if (password.campo === confirmPassword.campo) {
       const hashedPassword = md5(password.campo);
       try {
-        const response = await fetch(`http://localhost:3001/api/users/reset-password-pregunta`, {
+        const response = await fetch(`https://rest-api2-three.vercel.app/api/users/reset-password-pregunta`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

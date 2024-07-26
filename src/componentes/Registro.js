@@ -75,7 +75,7 @@ export default function Registro() {
             try {
                 const hashedPassword = md5(pass.campo);
                 console.log("passs: "+ hashedPassword);
-                const response = await fetch('http://localhost:3001/api/users', {
+                const response = await fetch('https://rest-api2-three.vercel.app/api/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

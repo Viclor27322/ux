@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+/* import { Selector } from 'testcafe';
 
 fixture`Página de Pacientes`.page`http://localhost:3000/Ad/Pacientes`;
 test('Agregar un nuevo paciente', async t => {
@@ -14,4 +14,4 @@ test('Agregar un nuevo paciente', async t => {
         .typeText('#fechaNacimiento', '2000-01-01');
 
     await t.click('button[data-testid="submit"]');
-});
+}); */

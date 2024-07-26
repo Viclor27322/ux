@@ -32,6 +32,8 @@ import Mate from './componentes/mate';
 import HorariosAtencion from './views/HorariosAtencion';
 import ClasificacionHeridas from './views/ClasificacionHeridas';
 import EvaluacionSistematizada from './views/EvaluacionSitematizada';
+import RegistroHeridas from './views/RegistroHeridas';
+import EditarHeridas from './views/EditarHeridas';
 function App() {
   return (  
     <AuthContextProvider>
@@ -61,7 +63,9 @@ function App() {
               <Route path='/reset-password/:Token' Component={ResetPassword}></Route>
               <Route path='/RecuperacionPregunta' Component={RecuperacionPreguntaa}></Route>
               <Route path='/Ad/ListaUser' Component={Usuarios}></Route>
-              <Route path='/Ad/Heridas' Component={ClasificacionHeridas}></Route>
+              <Route path='/Ad/Heridas/:IdPaciente' Component={ClasificacionHeridas}></Route>
+              <Route path='/Ad/EditarHeridas/:IdClasificacionHeridas' Component={EditarHeridas}></Route>
+              <Route path='/Ad/RegistroHeridas' Component={RegistroHeridas}></Route>
               <Route path='/Ad/Evaluacion' Component={EvaluacionSistematizada}></Route>
             </Routes>
           </BrowserRouter>

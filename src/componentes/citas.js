@@ -29,7 +29,7 @@ export default function Citas() {
 
   const obtenerCitas = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/citas");
+      const response = await fetch("https://rest-api2-three.vercel.app/api/citas");
       const data = await response.json();
       setCitas(data);
     } catch (error) {
@@ -39,7 +39,7 @@ export default function Citas() {
 
   const obtenerPacientes = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/pacientes");
+      const response = await fetch("https://rest-api2-three.vercel.app/api/pacientes");
       const data = await response.json();
       setPacientes(data);
     } catch (error) {
@@ -61,7 +61,7 @@ export default function Citas() {
     const formattedEnd = moment(end.campo).format("YYYY-MM-DD HH:mm:ss");
   
     try {
-      const response = await fetch("http://localhost:3001/api/citas", {
+      const response = await fetch("https://rest-api2-three.vercel.app/api/citas", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ export default function Citas() {
     const formattedEnd = moment(editedEnd.campo).format("YYYY-MM-DD HH:mm:ss");
     const pacienteId = parseInt(editedPaciente);
   
-    fetch(`http://localhost:3001/api/citas/${selectedEvent.id}`, {
+    fetch(`https://rest-api2-three.vercel.app/api/citas/${selectedEvent.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -146,7 +146,7 @@ export default function Citas() {
   
   const handleDelete = () => {
     if (window.confirm('¿Estás seguro de que deseas eliminar esta cita?')) {
-      fetch(`http://localhost:3001/api/citas/${selectedEvent.id}`, {
+      fetch(`https://rest-api2-three.vercel.app/api/citas/${selectedEvent.id}`, {
         method: "DELETE",
       })
         .then((response) => {

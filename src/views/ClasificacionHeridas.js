@@ -13,6 +13,17 @@ class ClasificacionHeridas extends Component{
             </div>
             <div>
                 <Clasificacion/>
+                {/* <iframe 
+  src='https://proyecto-accr.onrender.com/' 
+  style={{ 
+    width: '100%', 
+    height: '100vh', 
+    border: 'none', 
+    overflow: 'hidden',
+    scrollbarColor: 'none', 
+  }}
+/> */}
+
             </div>
             <div>
                 <Footer/>

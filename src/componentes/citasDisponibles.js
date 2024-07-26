@@ -33,7 +33,7 @@ export default function CitasDisponibles() {
 
   const obtenerCitasDisponibles = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/citas-disponibles`);
+      const response = await fetch(`https://rest-api2-three.vercel.app/api/citas-disponibles`);
       if (!response.ok) {
         throw new Error('Error al obtener las citas disponibles');
       }
@@ -63,7 +63,7 @@ export default function CitasDisponibles() {
 
   const handlePatientCheck = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/pacientes-correo/" + email.campo);
+      const response = await fetch("https://rest-api2-three.vercel.app/api/pacientes-correo/" + email.campo);
       if (!response.ok) {
         throw new Error('Error al verificar paciente');
       }
@@ -88,7 +88,7 @@ export default function CitasDisponibles() {
 
   const actualizarCita = async (idPaciente) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/citas-disponibles/${selectedCita.id}`, {
+      const response = await fetch(`https://rest-api2-three.vercel.app/api/citas-disponibles/${selectedCita.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +116,7 @@ export default function CitasDisponibles() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/api/pacientes", {
+      const response = await fetch("https://rest-api2-three.vercel.app/api/pacientes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

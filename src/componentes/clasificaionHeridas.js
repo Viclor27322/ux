@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Input from './comInput';
 import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { useParams,useNavigate } from 'react-router-dom';
 
 export default function Clasificacion() {
+  const { IdPaciente } = useParams();
+  const [paciente, setPaciente] = useState(null);
   const [localizacion, cambiarLocalizacion] = useState({ campo: '', valido: null });
   const [aspecto, cambiarAspecto] = useState({ campo: '', valido: null });
   const [zona, cambiarzona] = useState({ campo: '', valido: null });
@@ -20,6 +23,24 @@ export default function Clasificacion() {
     aspecto_topologio: [],
     zona_anatomica: [],
   });
+  const history = useNavigate();
+  useEffect(() => {
+    const fetchPaciente = async () => {
+        try {
+            const response = await fetch(`https://rest-api2-three.vercel.app/api/pacientes/${IdPaciente}`);
+            if (!response.ok) {
+                throw new Error('Paciente no encontrado');
+            }
+            const data = await response.json();
+            setPaciente(data);
+        } catch (error) {
+          history('/*');
+        }
+    };
+
+    fetchPaciente();
+}, [IdPaciente]);
+
 
   const handleChange = (e) => {
 
@@ -70,13 +91,13 @@ export default function Clasificacion() {
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-
-      pdf.save('formulario.pdf');
+      const nombreArchivo = `${paciente.Nombre}_${paciente.ApellidoP}_${paciente.ApellidoM}_${new Date().toISOString().slice(0, 10)}.pdf`;
+      pdf.save(nombreArchivo);
     });
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -98,26 +119,81 @@ export default function Clasificacion() {
       });
       return;
     }
-
-    console.log(localizacion);
-    console.log(aspecto);
-    console.log(zona);
-    console.log(isquemia);
-    console.log(infeccion);
-    console.log(edema);
-    console.log(neuropatia);
-    console.log(profundidad);
-    console.log(area);
-    console.log(faseHerida);
-    console.log(formData);
-
-    // Aquí puedes agregar la lógica para enviar los datos al backend
+    const data = {
+      id_paciente: IdPaciente, 
+      localizacion_inicial: localizacion.campo,
+      aspecto_topografico: aspecto.campo,
+      registrar_aspecto: formData.aspecto_topologio.join(', '), 
+      numero_zonas_afectadas: zona.campo,
+      registrar_zonas: formData.zona_anatomica.join(', '),
+      isquemia: isquemia.campo,
+      infeccion: infeccion.campo,
+      edema: edema.campo,
+      neuropatia: neuropatia.campo,
+      profundidad: profundidad.campo,
+      area: area.campo,
+      fase_cicatrizacion: faseHerida.campo,
+    };
+    console.log(data);
+    try {
+      const response = await fetch('http://localhost:3001/api/clasificacion_heridas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+  
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'Registro agregado exitosamente',
+      });
+      console.log('Success:', responseData);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Hubo un problema al enviar los datos',
+      });
+      console.error('Error:', error);
+    }
   };
 
   return (
     <div className="container mt-5" id="form-container">
       <h2 className="text-center">Clasificación San Elian para Heridas del Pie Diabético</h2>
-
+      {paciente ? (
+                <div className="card mb-4">
+                    <div className="card-header">
+                        Ficha de Identificación
+                    </div>
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-6 mb-2">
+                                <strong>Nombre:</strong> {paciente.Nombre} {paciente.ApellidoP} {paciente.ApellidoM}
+                            </div>
+                            <div className="col-6 mb-2">
+                                <strong>Correo:</strong> {paciente.Correo}
+                            </div>
+                            <div className="col-6 mb-2">
+                                <strong>Teléfono:</strong> {paciente.Telefono}
+                            </div>
+                            <div className="col-6">
+                                <strong>Fecha de Nacimiento:</strong> {new Date(paciente.fechaNacimiento).toLocaleDateString()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <p>No se encontraron detalles para este paciente.</p>
+            )}
       <form onSubmit={handleSubmit}>
         {/* Factores Anatómicos Topográficos */}
         <div className="card mb-4">
