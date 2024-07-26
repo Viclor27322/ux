@@ -20,11 +20,8 @@ export default function Footer() {
             <div id="footer_inf2">
                 <h2 className="txt-inf">Contactos</h2>
                 <p className="txt-inf"><i className="fa-solid fa-phone  rs-icons"></i>77 11443040</p>
-                <p className="txt-inf"><i className="fa-solid fa-envelope  rs-icons"></i>Lorem ipsum dolor sit amet consectetur</p>
-                <div className="txt-inf ">
-                    <a href="https://wa.me/547711443040"><i className="fa-brands fa-whatsapp rs-icons  "></i></a>
-                    <img src="" alt="" width="75px" height="75px" />
-                </div>
+                <p className="txt-inf">SOMOS UN EQUIPO MULTIDISCIPLINARIO DE PERSONAL DE LA SALUD, ENFOCADOS EN LA ATENCION DE PACIENTES CON PIE DIABETICO</p>
+              
 
             </div>
 

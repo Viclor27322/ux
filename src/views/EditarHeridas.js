@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Nav from '../componentes/nav';
 import NavbarAdmin from '../componentes/navAdmin';
 import Footer from '../componentes/footerr';
-import Evaluacion from '../componentes/evaluacionSistematizada';
-class EvaluacionSistematizada extends Component{
+import EditarClasificacion from '../componentes/editarHeridas';
+class EditarHeridas extends Component{
     render(){
     return(
         <div>
@@ -11,8 +11,8 @@ class EvaluacionSistematizada extends Component{
             <Nav/>
                 <NavbarAdmin/>
             </div>
-            <div >
-                <Evaluacion/>
+            <div>
+                <EditarClasificacion/>
             </div>
             <div>
                 <Footer/>
@@ -22,4 +22,4 @@ class EvaluacionSistematizada extends Component{
   }
 }
 
-export default EvaluacionSistematizada;
+export default EditarHeridas;
