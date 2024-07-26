@@ -136,7 +136,7 @@ export default function Clasificacion() {
     };
     console.log(data);
     try {
-      const response = await fetch('http://localhost:3001/api/clasificacion_heridas', {
+      const response = await fetch('https://rest-api2-three.vercel.app/api/clasificacion_heridas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

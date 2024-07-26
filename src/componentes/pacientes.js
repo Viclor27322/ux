@@ -450,7 +450,7 @@ export default function Paciente() {
                         </div>
                         <div className="modal-footer">
                             {selectedPaciente && (
-                                <a className="btn btn-success" href={`http://localhost:3000/Ad/Heridas/${selectedPaciente.IdPaciente}`}>
+                                <a className="btn btn-success" href={`https://cirupied-eight.vercel.app/Ad/Heridas/${selectedPaciente.IdPaciente}`}>
                                 Heridas
                             </a>
                             )}
