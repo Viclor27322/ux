@@ -67,7 +67,7 @@ export default function Expedientes() {
 
       <div className="col-md-12 col-lg-4">
         <div className="card p-3 mb-3">
-          <h2 className="h5">Cantidad de Citas por Fecha</h2>
+          <h2 className="h5">Cantidad de Expedientes</h2>
           <div className="chart-container">
             <Line
               data={{
@@ -87,7 +87,7 @@ export default function Expedientes() {
 
       <div className="col-md-12 col-lg-4">
         <div className="card p-3">
-          <h2 className="h5">Cantidad de Expedientes</h2>
+          <h2 className="h5">Cantidad de Citas por Fecha </h2>
           <div className="chart-container">
             <Line
               data={{
