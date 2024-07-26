@@ -26,7 +26,7 @@ export default function RegistroListHeridas() {
 
     const obtenerRegistros = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/clasificacion_heridas");
+            const response = await fetch("https://rest-api2-three.vercel.app/api/clasificacion_heridas");
             const data = await response.json();
             setRegistros(data);
         } catch (error) {
@@ -36,7 +36,7 @@ export default function RegistroListHeridas() {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:3001/api/clasificacion_heridas/${id}`);
+            await axios.delete(`https://rest-api2-three.vercel.app/api/clasificacion_heridas/${id}`);
             setRegistros(registros.filter(registro => registro.IdClasificacionHeridas !== id));
             Swal.fire({
                 icon: 'success',
@@ -99,7 +99,7 @@ export default function RegistroListHeridas() {
                                 <h5 className="card-title">{registro.Nombre} {registro.ApellidoP} {registro.ApellidoM}</h5>
                                 <p className="card-text"> Creado: {formatDate(registro.FechaCreacion)}</p>
                                 <button className="btn btn-danger" onClick={() => openModal(registro)}>Eliminar</button>
-                                <a className="btn btn-warning" href={`http://localhost:3000/Ad/EditarHeridas/${registro.IdClasificacionHeridas}`}>
+                                <a className="btn btn-warning" href={`https://cirupied-eight.vercel.app/Ad/EditarHeridas/${registro.IdClasificacionHeridas}`}>
                                     Editar
                                 </a>
                             </div>
