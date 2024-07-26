@@ -11,8 +11,8 @@ export default function Expedientes() {
   useEffect(() => {
     // Fetching data from the APIs
     const fetchData = async () => {
-      const expResponse = await fetch('http://localhost:3001/api/clasificacion_heridas');
-      const citasResponse = await fetch('http://localhost:3001/api/citas');
+      const expResponse = await fetch('https://rest-api2-three.vercel.app/api/clasificacion_heridas');
+      const citasResponse = await fetch('https://rest-api2-three.vercel.app/api/citas');
       const expData = await expResponse.json();
       const citasData = await citasResponse.json();
 

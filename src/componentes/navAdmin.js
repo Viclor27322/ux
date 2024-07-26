@@ -7,11 +7,11 @@ import { AuthContext } from '../Auth/AuthProvider';
 export default function NavbarAdmin() {
     const { isAuthenticated,logout,user } = useContext(AuthContext);
     const history = useNavigate();
-     /* useEffect(()=>{
+     useEffect(()=>{
         if(!isAuthenticated){
             history('/');
         }
-    })    */
+    })   
 
     const Salir=()=>{
         logout();

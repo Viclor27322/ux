@@ -6,7 +6,6 @@ export default function HorariosAtencion() {
     const [horarios, setHorarios] = useState([]);
     const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
 
-
     const [horaInicio, setHoraInicio] = useState({ campo: "", valido: null });
     const [horaFin, setHoraFin] = useState({ campo: "", valido: null });
     const [estado, setEstado] = useState("");
@@ -29,10 +28,10 @@ export default function HorariosAtencion() {
 
     const abrirModalEditar = (horario) => {
         setHorarioSeleccionado(horario);
-        setHoraInicio({ campo: moment(horario.HoraInicio).add(6,'hours').format("HH:mm"), valido: true });
-        setHoraFin({ campo: moment(horario.HoraFin).add(6,'hours').format("HH:mm"), valido: true });
-        setEstado(horario.Estado ? "true" : "false");
-        setDia({campo: horario.Dia, valido: true});
+        setHoraInicio({ campo: moment(horario.HoraInicio, "HH:mm:ss").format("HH:mm"), valido: true });
+        setHoraFin({ campo: moment(horario.HoraFin, "HH:mm:ss").format("HH:mm"), valido: true });
+        setEstado(horario.Estado.data[0] === 1 ? "true" : "false");
+        setDia({ campo: horario.Dia, valido: true });
     };
 
     const cerrarModalEditar = () => {
@@ -41,19 +40,18 @@ export default function HorariosAtencion() {
 
     const actualizarHorario = async () => {
         try {
-            // Realizar la llamada a la API para actualizar el horario de atención
-            await fetch(`https://rest-api2-three.vercel.app/api/horarios/${dia.campo}`, {
+            const updatedHorario = {
+                HoraInicio: moment(horaInicio.campo, "HH:mm").format("HH:mm:ss"),
+                HoraFin: moment(horaFin.campo, "HH:mm").format("HH:mm:ss"),
+                Estado: estado === "true" ? 1 : 0
+            };
+            console.log(updatedHorario)
+            await fetch(`https://rest-api2-three.vercel.app/api/horarios/${horarioSeleccionado.IdDia}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(
-                    {
-                        horaInicio: horaInicio.campo,
-                        horaFin: horaFin.campo,
-                        estado: estado
-                    }
-                ),
+                body: JSON.stringify(updatedHorario),
             });
             obtenerHorarios();
             cerrarModalEditar();
@@ -77,11 +75,11 @@ export default function HorariosAtencion() {
                 </thead>
                 <tbody>
                     {horarios.map(horario => (
-                        <tr >
+                        <tr key={horario.IdDia}>
                             <td>{horario.Dia}</td>
-                            <td>{moment(horario.HoraInicio).add(6,'hours').format("HH:mm:ss")}</td>
-                            <td>{moment(horario.HoraFin).add(6, 'hours').format("HH:mm:ss")}</td>
-                            <td>{horario.Estado ? "Activo" : "Inactivo"}</td>
+                            <td>{moment(horario.HoraInicio, "HH:mm:ss").format("HH:mm:ss")}</td>
+                            <td>{moment(horario.HoraFin, "HH:mm:ss").format("HH:mm:ss")}</td>
+                            <td>{horario.Estado.data[0] === 1 ? "Activo" : "Inactivo"}</td>
                             <td>
                                 <button className="btn btn-warning" onClick={() => abrirModalEditar(horario)}>Editar</button>
                             </td>
