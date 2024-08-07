@@ -10,7 +10,7 @@ export default function error404(){
             <h1 className="display-4">404</h1>
             <p className="lead">Página no encontrada</p>
             <p>La página que estás buscando no existe.</p>
-            <Link to="/" className="btn btn-primary">
+            <Link to="/Ad" className="btn btn-primary">
                 Volver al Inicio
             </Link>
             </div>

@@ -10,7 +10,7 @@ export default function errror500(){
             <h1 className="display-4">500</h1>
             <p className="lead">Existe un problema con el servidor</p>
             <p>Al parecer se produjo un error interno dentro del servidor, si perciste notifiquelo.</p>
-            <Link to="/" className="btn btn-primary">
+            <Link to="/Ad" className="btn btn-primary">
                 Volver al Inicio
             </Link>
             </div>
