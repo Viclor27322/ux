@@ -48,7 +48,7 @@ export default function HorariosAtencion() {
                 Estado: estado === "true" ? 1 : 0
             };
             console.log(updatedHorario);
-            await fetch(`https://rest-api2-three.vercel.app/api/dhorarios/${dias}`, {
+            await fetch(`https://rest-api2-three.vercel.app/api/horarios/${dias}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
