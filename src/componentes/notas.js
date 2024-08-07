@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Clin from '../img/clin.jpg';
 import '../css/colores.css'
 
 export default function Notas() {

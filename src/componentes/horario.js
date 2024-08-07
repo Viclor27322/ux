@@ -17,7 +17,7 @@ export default function HorariosAtencion() {
 
     const obtenerHorarios = async () => {
         try {
-            const response = await fetch("https://rest-api2-three.vercel.app/api/horarios");
+            const response = await fetch("http://localhost:3001/api/horarios");
             const data = await response.json();
             setHorarios(data);
             console.log(data);
@@ -39,14 +39,16 @@ export default function HorariosAtencion() {
     };
 
     const actualizarHorario = async () => {
+        const dias = dia.campo;
+        console.log(dias);
         try {
             const updatedHorario = {
                 HoraInicio: moment(horaInicio.campo, "HH:mm").format("HH:mm:ss"),
                 HoraFin: moment(horaFin.campo, "HH:mm").format("HH:mm:ss"),
                 Estado: estado === "true" ? 1 : 0
             };
-            console.log(updatedHorario)
-            await fetch(`https://rest-api2-three.vercel.app/api/horarios/${horarioSeleccionado.IdDia}`, {
+            console.log(updatedHorario);
+            await fetch(`http://localhost:3001/api/horarios/${dias}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -88,7 +90,6 @@ export default function HorariosAtencion() {
                 </tbody>
             </table>
 
-            {/* Modal de edición */}
             {horarioSeleccionado && (
                 <div className="modal" tabIndex="-1" role="dialog" style={{ display: "block" }}>
                     <div className="modal-dialog" role="document">
