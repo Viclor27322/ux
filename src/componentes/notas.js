@@ -28,7 +28,7 @@ export default function Notas() {
                     <div className="col-md-9">
                         <h3 className="text-sub">¿Que es el pie diabetico?</h3>
                         <p>
-                            Es el sindrome que se presenta como un ataque agudo o cronico del pie caracterizado por uno o mas heridas cuya etiologia, complejidad  y gravedad es una variable en destruccion de tejidos  en extension y profundidad, zonas y aspectos anatomicos que pueden ser agravado por isquemia, infeccion, edema, y neuropatia, con riesgo de amputacion en los pacientes con diabetes.
+                            Es el sindrome que se presenta como un ataque agudo o cronico del pie caracterizado por uno o mas heridas cuya etiologia, complejidad  y gravedad, es una variable en destruccion de tejidos  en extension y profundidad, zonas y aspectos anatomicos que pueden ser agravado por isquemia, infeccion, edema, y neuropatia, con riesgo de amputacion en los pacientes con diabetes.
                         </p>
                     </div>
                 </div>
