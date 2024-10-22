@@ -1,60 +1,60 @@
 name: PWA CI/CD Workflow
 
 on:
-  push:
-    branches:
-      - main       # Despliegue en producción
-      - develop    # Pruebas y compilación
-      - feature/*  # Pruebas en ramas feature
-      - hotfix/*   # Pruebas en ramas hotfix
-  pull_request:
-    branches:
-      - main       # Validar cambios antes de hacer merge a main
-      - develop    # Validar cambios antes de hacer merge a develop
-  workflow_dispatch:  # Activación manual opcional
+  push:
+   branches:
+      - main     # Despliegue en producción
+      - develop   # Pruebas y compilación
+      - feature/*  # Pruebas en ramas feature
+      - hotfix/*  # Pruebas en ramas hotfix
+   pull_request:
+     branches:
+      - main     # Validar cambios antes de hacer merge a main
+       - develop    # Validar cambios antes de hacer merge a develop
+  workflow_dispatch:    # Activación manual opcional
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      
-      - name: Install dependencies
-        run: npm install
-      
-      - name: Run tests
-        run: npm test
-      
-      - name: Build project
-        run: npm run build
+  build:
+     runs-on: ubuntu-latest
+  
+   steps:
+       - name: Checkout code
+         uses: actions/checkout@v2
 
-  deploy:
-    if: github.ref == 'refs/heads/main'  # Solo despliega en main
-    needs: build
-    runs-on: ubuntu-latest
+       - name: Set up Node.js
+         uses: actions/setup-node@v2
+       with:
+         node-version: '16'
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Deploy to Vercel
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+     - name: Cache Node.js modules
+         uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+         run: npm test
+
+      - name: Build project
+         run: npm run build
+
+   deploy:
+     if: github.ref == 'refs/heads/main' # Solo despliega en main
+     needs: build
+     runs-on: ubuntu-latest
+
+     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
