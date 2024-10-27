@@ -29,8 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Check installed packages
+        run: npm list jest
       - name: Run Integration Tests
-        run: npm run test:integration 
+        run: npm run test:integration
 
   sonar-scan:
     needs: integration-tests
