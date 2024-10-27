@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies
-        run: yarn install
+        run: npm install
       - name: Run ESLint
-        run: yarn lint
+        run: npm run lint
 
   integration-tests:
     needs: lint
