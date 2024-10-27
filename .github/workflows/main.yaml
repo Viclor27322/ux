@@ -22,15 +22,17 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run ESLint
-        run: npm run lint || echo "Lint errors encountered, but continuing."
+        run: npm run lint
 
   integration-tests:
     needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run Integration Tests
-        run: npm run test:integration 
+      - name: Install dependencies
+        run: npm install
+      - name: Run Tests
+        run: npm test
 
   sonar-scan:
     needs: integration-tests
