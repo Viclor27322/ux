@@ -74,7 +74,7 @@ export default function Login() {
                 login(user);
                 history('/Ad');
             } else {
-                console.error('Error en el inicio de sesión:', data);
+                //console.error('Error en el inicio de sesión:', data);
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
