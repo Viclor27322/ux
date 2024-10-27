@@ -37,7 +37,7 @@ jobs:
         run: npm run test:integration
 
   snyk-scan:
-    needs: sonar-scan
+    needs: integration-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
