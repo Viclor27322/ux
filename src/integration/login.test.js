@@ -42,8 +42,8 @@ describe('Login Component', () => {
 
   test('simulates successful login without actual logic', async () => {
     // Simulamos completar el formulario
-    fireEvent.change(screen.getByLabelText(/Correo Electrónico/i), { target: { value: 'test@example.com' } });
-    fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'testpass' } });
+    fireEvent.change(screen.getByLabelText(/Correo Electrónico/i), { target: { value: '20210704@uthh.edu.mx' } });
+    fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'victor' } });
 
     const button = screen.getByText(/Iniciar sesión/i);
     fireEvent.click(button);
