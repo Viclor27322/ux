@@ -49,7 +49,7 @@ jobs:
         run: snyk test --all-projects
 
   deploy:
-    needs: snyk-scan
+    needs: integration-tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
