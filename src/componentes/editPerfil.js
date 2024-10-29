@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../Auth/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const EditProfile = () => {
+    const history = useNavigate();
+    const { login } = useContext(AuthContext);
     const { user } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         nombre: '',
@@ -10,6 +13,9 @@ const EditProfile = () => {
         telefono: '',
         imagen: null
     });
+    const [imagePreview, setImagePreview] = useState(null); // Estado para la vista previa
+    const [isCameraOpen, setIsCameraOpen] = useState(false);
+    const videoRef = useRef(null); // Referencia al video
 
     useEffect(() => {
         if (user) {
@@ -38,10 +44,46 @@ const EditProfile = () => {
                     text: 'Por favor selecciona un archivo de imagen válido (JPEG, PNG, GIF o SVG).',
                 });
                 setFormData({ ...formData, imagen: null }); // Resetear imagen
+                setImagePreview(null); // Resetear vista previa
             } else {
                 setFormData({ ...formData, imagen: file });
+                setImagePreview(URL.createObjectURL(file)); // Crear vista previa
             }
         }
+    };
+
+    const openCamera = async () => {
+        setIsCameraOpen(true);
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            videoRef.current.srcObject = stream;
+        } catch (err) {
+            console.error('Error accessing camera:', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo acceder a la cámara. Verifica los permisos.',
+            });
+        }
+    };
+
+    const captureImage = () => {
+        const video = videoRef.current;
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob((blob) => {
+            const file = new File([blob], 'captura.jpg', { type: 'image/jpeg' });
+            setFormData({ ...formData, imagen: file });
+            setImagePreview(URL.createObjectURL(file)); // Crear vista previa
+        }, 'image/jpeg');
+        setIsCameraOpen(false);
+        // Detener el stream de la cámara
+        const stream = video.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
     };
 
     const handleSubmit = async (e) => {
@@ -89,27 +131,18 @@ const EditProfile = () => {
             Swal.fire({
                 icon: 'success',
                 title: 'Éxito',
-                text: data.msg,
+                text: 'Usuario actualizado correctamente',
             });
+            const user = data;
+                login(user);
+            history('/Ad/Perfil');
         } catch (error) {
             console.error('Error updating profile:', error);
-            
-            // Mostrar el contenido de la respuesta si no es JSON
-            if (error.response) {
-                const errorText = await error.response.text();
-                console.error('Error response:', errorText);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Detalles: ' + errorText,
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'No se pudo actualizar el perfil. Intenta de nuevo más tarde.',
-                });
-            }
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo actualizar el perfil. Intenta de nuevo más tarde.',
+            });
         }          
     };
 
@@ -131,9 +164,26 @@ const EditProfile = () => {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Selecciona Imagen</label>
-                    <input type="file" className="form-control" accept="image/*" onChange={handleImageUpload} required />
+                    <input type="file" className="form-control" accept="image/*" capture onChange={handleImageUpload} />
                 </div>
-                <button type="submit" className="btn btn-primary">Guardar Cambios</button>
+
+                {imagePreview && (
+                    <div className="mb-3">
+                        <label className="form-label">Vista Previa</label>
+                        <img src={imagePreview} alt="Vista previa" style={{ maxWidth: '100%', height: 'auto' }} />
+                    </div>
+                )}
+
+
+                <button type="button" className="btn btn-secondary mt-3" onClick={openCamera}>Abrir Cámara</button>
+                {isCameraOpen && (
+                    <div className="mb-3">
+                        <video ref={videoRef} autoPlay style={{ maxWidth: '100%', height: 'auto' }}></video>
+                        <button type="button" className="btn btn-success" onClick={captureImage}>Capturar Imagen</button>
+                    </div>
+                )}
+                
+                <button type="submit" className="btn btn-primary mt-3 ms-3">Guardar Cambios</button>
             </form>
         </div>
     );
