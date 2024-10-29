@@ -114,7 +114,7 @@ const EditProfile = () => {
         uploadData.append('Telefono', telefono);
 
         try {
-            const response = await fetch(`https://newapiimagenes.onrender.com/api/users/${user.IdUser}`, {
+            const response = await fetch(`http://localhost:3001/api/users/${user.IdUser}`, {
                 method: 'PUT',
                 body: uploadData,
                 headers: {
@@ -133,8 +133,8 @@ const EditProfile = () => {
                 title: 'Éxito',
                 text: 'Usuario actualizado correctamente',
             });
-            const user = data;
-                login(user);
+            console.log(data);
+            login(data);
             history('/Ad/Perfil');
         } catch (error) {
             console.error('Error updating profile:', error);
