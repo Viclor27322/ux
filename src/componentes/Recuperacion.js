@@ -5,7 +5,7 @@ import Input from './comInput';
 import Swal from 'sweetalert2';
 
 export default function Recuperacion() {
-    const history = useNavigate();
+    // const history = useNavigate(); // eslint-disable-next-line no-unused-vars
     const [correo, cambiarCorreo] = useState({campo:'',valido: null});
 
     const expresiones = {

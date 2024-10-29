@@ -10,7 +10,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Registro() {
-    const history = useNavigate();
+    const history = useNavigate(); // eslint-disable-next-line no-unused-vars
     const [nombre, cambiarNombre] = useState({ campo: '', valido: null });
     const [correo, cambiarCorreo] = useState({ campo: '', valido: null });
     const [pass, cambiarPass] = useState({ campo: '', valido: null });

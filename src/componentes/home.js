@@ -3,7 +3,6 @@ import Logo from '../img/CirupieD.png';
 import slider1 from '../img/slider-1.jpg';
 import slider2 from '../img/slider-4.jpg';
 import slider3 from '../img/slider-5.jpg';
-import homecss from '../css/home.css';
 
 export default function Inicio() {
     return (
