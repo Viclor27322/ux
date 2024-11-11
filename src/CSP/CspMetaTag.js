@@ -6,12 +6,12 @@ export function CSPMetaTag() {
     meta.httpEquiv = 'Content-Security-Policy';
     meta.content = `
       default-src 'self';
-      script-src 'self' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://www.google.com https://cdn.jsdelivr.net https://js.stripe.com;
+      script-src 'self' https://js.stripe.com 'unsafe-inline';
       style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/antd.css;
       font-src 'self' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/fonts/;
       img-src 'self' blob: data: https://res.cloudinary.com;
-      connect-src 'self' https://www.google-analytics.com https://rest-api2-three.vercel.app https://newapiimagenes.onrender.com https://api.stripe.com https://m.stripe.network;
-      frame-src 'self' https://proyecto-accr.onrender.com https://www.google.com.mx https://js.stripe.com;
+      connect-src 'self' https://api.stripe.com https://m.stripe.network https://rest-api2-three.vercel.app https://newapiimagenes.onrender.com;
+      frame-src 'self' https://js.stripe.com https://proyecto-accr.onrender.com;
       form-action 'self';
     `;
 
