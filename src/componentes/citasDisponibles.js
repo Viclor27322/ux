@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { loadStripe } from '@stripe/stripe-js'; // Importa loadStripe para inicializar Stripe
+import { Elements } from '@stripe/react-stripe-js'; // Importa Elements para envolver el formulario
+import CheckoutForm from './CheckoutForm.js'; // Importa el componente CheckoutForm
 import { Modal } from "bootstrap";
 import Swal from "sweetalert2"; // Importa SweetAlert2
 import Input from './comInput';

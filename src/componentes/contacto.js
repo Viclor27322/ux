@@ -1,6 +1,4 @@
 import React from "react";
-
-import Clin from '../img/clin.jpg';
 import contac from '../img/contac.png';
 import direcc from '../img/direcc.png';
 
