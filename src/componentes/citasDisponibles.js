@@ -7,8 +7,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
-require('dotenv').config();
-const stripePromise = loadStripe(process.env.Stripe_Key); // Reemplaza con tu clave pública de Stripe
+const stripePromise = loadStripe('pk_live_51QK3p3KiNmXtnueI3z94e8nX8S4ttxOP0sfHk02U1CLbrlTP0qijyQOvHWFBF9LMCzGj3qQPm8jKwiHMNpsG8VgJ00uIf2Umb7'); // Reemplaza con tu clave pública de Stripe
 
 export default function CitasDisponibles() {
   const [citasDisponibles, setCitasDisponibles] = useState([]);
