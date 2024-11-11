@@ -40,7 +40,6 @@ function App() {
   return (  
     <AuthContextProvider>
           <BrowserRouter>
-            <CSPMetaTag/>
             <Routes>
               <Route path="/" Component={Home}></Route>
               <Route path="/Notas" Component={Nota}></Route>
