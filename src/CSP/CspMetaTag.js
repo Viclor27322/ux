@@ -6,7 +6,7 @@ export function CSPMetaTag() {
     meta.httpEquiv = 'Content-Security-Policy';
     meta.content = `
       default-src 'self';
-       script-src 'self' 'sha256-5+YTmTcBwCYdJ8Jetbr6kyjGp0Ry/H7ptpoun6CrSwQ=' 'sha256-/5Guo2nzv5n/w6ukZpOBZOtTJBJPSkJ6mhHpnBgm3Ls=' https://js.stripe.com https://m.stripe.network;
+      script-src 'unsafe-inline' 'sha256-5+YTmTcBwCYdJ8Jetbr6kyjGp0Ry/H7ptpoun6CrSwQ=' 'sha256-/5Guo2nzv5n/w6ukZpOBZOtTJBJPSkJ6mhHpnBgm3Ls=' https://js.stripe.com https://m.stripe.network;
       style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/antd.css;
       font-src 'self' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/fonts/;
       img-src 'self' blob: data: https://res.cloudinary.com;
