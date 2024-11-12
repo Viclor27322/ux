@@ -52,6 +52,7 @@ export default function CheckoutForm({ cita, onPaymentSuccess }) {
   );
 }
 */
+/* global Conekta */
 
 // src/components/CheckoutForm.js
 import React, { useState } from 'react';
@@ -63,7 +64,8 @@ const CheckoutForm = () => {
     number: '',
     exp_month: '',
     exp_year: '',
-    cvc: ''
+    cvc: '',
+    email: ''
   });
 
   const handleChange = (e) => {
@@ -90,7 +92,7 @@ const CheckoutForm = () => {
           amount: 10000, // Monto en centavos
           currency: 'MXN',
           name: cardData.name,
-          email: email.campo
+          email: cardData.email
         });
         alert(response.data.message);
       } catch (error) {
@@ -112,6 +114,13 @@ const CheckoutForm = () => {
         value={cardData.name}
         onChange={handleChange}
       />
+      <input
+  type="email"
+  name="email"
+  placeholder="Correo Electrónico"
+  value={cardData.email}
+  onChange={handleChange}
+/>
       <input
         type="text"
         name="number"
