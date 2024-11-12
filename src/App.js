@@ -25,7 +25,6 @@ import Recuperacion from './views/Recuperacion';
 import ResetPassword from './componentes/ResetPass';
 import Usuarios from './views/Usuarios';
 import { AuthContextProvider } from './Auth/AuthProvider';
-import { CSPMetaTag } from './CSP/CspMetaTag';
 import RecuperacionPreguntaa from './views/RecuperacionPregunta';
 import CitasDisponibles from './views/citasDisponibles';
 import Mate from './componentes/mate';
@@ -40,7 +39,6 @@ function App() {
   return (  
     <AuthContextProvider>
           <BrowserRouter>
-            <CSPMetaTag/>
             <Routes>
               <Route path="/" Component={Home}></Route>
               <Route path="/Notas" Component={Nota}></Route>
