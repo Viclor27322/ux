@@ -7,8 +7,8 @@ export function CSPMetaTag() {
     meta.content = `
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'sha256-5+YTmTcBwCYdJ8Jetbr6kyjGp0Ry/H7ptpoun6CrSwQ=' 'sha256-/5Guo2nzv5n/w6ukZpOBZOtTJBJPSkJ6mhHpnBgm3Ls=' https://js.stripe.com https://m.stripe.network;
-      style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/antd.css;
-      font-src 'self' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/fonts/;
+      style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/antd.css https://vercel.live/fonts;
+      font-src 'self' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/fonts/ https://vercel.live/fonts;
       img-src 'self' blob: data: https://res.cloudinary.com;
       connect-src 'self' https://api.stripe.com https://m.stripe.network https://rest-api2-three.vercel.app https://newapiimagenes.onrender.com https://www.google-analytics.com;
       frame-src 'self' https://js.stripe.com https://proyecto-accr.onrender.com https://www.google.com.mx https://vercel.live;
