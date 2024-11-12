@@ -5,10 +5,10 @@ export function CSPMetaTag() {
     const meta = document.createElement('meta');
     meta.httpEquiv = 'Content-Security-Policy';
     meta.content = `
-      default-src *;
+      default-src * 'unsafe-inline' 'unsafe-eval';
       script-src * 'unsafe-inline' 'unsafe-eval';
       style-src * 'unsafe-inline';
-      img-src * data:;
+      img-src * data: blob:;
       font-src *;
       connect-src *;
       frame-src *;
