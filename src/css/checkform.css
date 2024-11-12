@@ -1,0 +1,38 @@
+.payment-form {
+    background-color: #f9f9f9;
+  }
+  
+  .payment-form .StripeElement {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+  
+  .payment-form button {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .payment-form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .payment-form button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  .payment-form p {
+    margin-top: 1rem;
+    color: green;
+    font-weight: bold;
+  }
+  

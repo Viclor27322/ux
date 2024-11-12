@@ -7,12 +7,17 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CheckoutForm from "./CheckoutForm"; // Asegúrate de importar tu formulario de pago
 
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
+// Carga la clave pública de Stripe
+const stripePromise = loadStripe("pk_live_51QK3p3KiNmXtnueI3z94e8nX8S4ttxOP0sfHk02U1CLbrlTP0qijyQOvHWFBF9LMCzGj3qQPm8jKwiHMNpsG8VgJ00uIf2Umb7");
 const localizer = momentLocalizer(moment);
 
 export default function CitasDisponibles() {
   const [citasDisponibles, setCitasDisponibles] = useState([]);
   const [selectedCita, setSelectedCita] = useState(null);
+  const [paciente, setPaciente] = useState(null);
   const [showForm, setShowForm] = useState(false); // Nuevo estado para controlar la visualización del formulario
   const [showPaymentForm, setShowPaymentForm] = useState(false); // Nuevo estado para mostrar el formulario de pago
   const [email, setEmail] = useState({ campo: '', valido: null });
@@ -65,7 +70,8 @@ export default function CitasDisponibles() {
     description: cita.Descripcion,
   }));
 
-  const handlePatientCheck = async () => {
+  const handlePatientCheck = async (e) => {
+    e.preventDefault(); // Evitar recarga de página
     try {
       const response = await fetch("https://rest-api2-three.vercel.app/api/pacientes-correo/" + email.campo);
       if (!response.ok) {
@@ -73,17 +79,17 @@ export default function CitasDisponibles() {
       }
       const data = await response.json();
       if (data.IdPaciente) {
-        //await actualizarCita(data.IdPaciente);
-        setShowPaymentForm(true); // Mostrar el formulario de pago si el paciente existe
+        setPaciente(data.IdPaciente);
+        setShowPaymentForm(true); // Muestra el formulario de pago si el paciente existe
       } else {
-        Swal.fire({ // Usa SweetAlert2 para mostrar el mensaje de alerta
+        Swal.fire({
           icon: 'error',
           title: 'Error',
           text: "El paciente no se encontró, por favor, regístrese o asegúrese de ingresar correctamente su correo.",
         });
       }
     } catch (error) {
-      Swal.fire({ // Usa SweetAlert2 para mostrar el error
+      Swal.fire({
         icon: 'error',
         title: 'Error',
         text: "Error en el servidor al verificar paciente.",
@@ -127,10 +133,10 @@ export default function CitasDisponibles() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          IdPaciente: selectedCita.id, // Usa el id de paciente obtenido anteriormente
+          IdPaciente: paciente, // Usa el id de paciente obtenido anteriormente
         }),
       });
-      const data = await response.json();
+      await response.json();
       Swal.fire({
         icon: 'success',
         title: 'Cita actualizada',
@@ -230,7 +236,9 @@ export default function CitasDisponibles() {
             </div>
             <div className="modal-body">
               {showPaymentForm ? (
-                <CheckoutForm cita={selectedCita} onPaymentSuccess={handleCitaSelection} />
+                <Elements stripe={stripePromise}>
+                <CheckoutForm cita={paciente} onPaymentSuccess={handlePaymentSuccess} />
+              </Elements>
               ) : !showForm ? (
                 <div>
                   <p>Por favor, ingresa tu correo electrónico para verificar si ya eres paciente:</p>
