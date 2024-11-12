@@ -36,6 +36,7 @@ import RegistroHeridas from './views/RegistroHeridas';
 import EditarHeridas from './views/EditarHeridas';
 import Perfil from './views/Perfil';
 import EditPerfil from './views/EditPerfil';
+import HistorialPagoss from './views/HistorialPagos';
 function App() {
   return (  
     <AuthContextProvider>
@@ -71,6 +72,7 @@ function App() {
               <Route path='/Ad/Evaluacion' Component={EvaluacionSistematizada}></Route>
               <Route path='/Ad/Perfil' Component={Perfil}></Route>
               <Route path='/Ad/EditPerfil' Component={EditPerfil}></Route>
+              <Route path='/Ad/HistorialPagos' Component={HistorialPagoss}></Route>
             </Routes>
           </BrowserRouter>
     </AuthContextProvider>
