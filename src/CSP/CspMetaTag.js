@@ -10,7 +10,7 @@ export function CSPMetaTag() {
       style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/antd.css https://vercel.live https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/antd.css;
       font-src 'self' https://vercel.live/fonts https://cdn.jsdelivr.net/npm/antd@5.11.3/dist/fonts/;
       img-src 'self' blob: data: https://res.cloudinary.com;
-      cconnect-src 'self' https://vercel.live https://cdn.jsdelivr.net https://api.stripe.com https://m.stripe.network https://rest-api2-three.vercel.app https://newapiimagenes.onrender.com https://www.google-analytics.com;
+      connect-src 'self' https://vercel.live https://cdn.jsdelivr.net https://api.stripe.com https://m.stripe.network https://rest-api2-three.vercel.app https://newapiimagenes.onrender.com https://www.google-analytics.com;
       frame-src 'self' https://js.stripe.com https://proyecto-accr.onrender.com https://www.google.com.mx;
       form-action 'self';
     `;
