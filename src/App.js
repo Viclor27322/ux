@@ -6,6 +6,7 @@ import {
   Route,
   useLocation
 } from "react-router-dom";
+import React, { useEffect } from 'react';
 import Home from './views/Inicio';
 import Nota from './views/Notas';
 import Especialista from './views/Especialistas';
@@ -39,22 +40,27 @@ import Perfil from './views/Perfil';
 import EditPerfil from './views/EditPerfil';
 import HistorialPagoss from './views/HistorialPagos';
 
-import { initGA, logPageView } from './analytics';
-function App() {
-  useEffect(() => {
-    const TRACKING_ID = "G-T0W08YDD32"; // Reemplaza con tu ID de Google Analytics
-    initGA(TRACKING_ID);
-  }, []);
 
-  // Registrar la vista de página en cada cambio de ruta
+import { initGA, logPageView } from './analytics';
+import ReactGA from 'react-ga4';
+// Inicializa Google Analytics solo una vez
+ReactGA.initialize("G-T0W08YDD32");
+// Este componente es responsable de enviar la página vista a Google Analytics cada vez que la ubicación cambia.
+function GoogleAnalyticsTracker() {
   const location = useLocation();
+
   useEffect(() => {
-    logPageView();
+    ReactGA.send({ hitType: "pageview", page: location.pathname });
   }, [location]);
+
+  return null;
+}
+function App() {
   return (  
     <AuthContextProvider>
           <BrowserRouter>
             <CSPMetaTag/>
+            <GoogleAnalyticsTracker />
             <Routes>
               <Route path="/" Component={Home}></Route>
               <Route path="/Notas" Component={Nota}></Route>
