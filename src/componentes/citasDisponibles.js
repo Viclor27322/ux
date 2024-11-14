@@ -28,6 +28,40 @@ export default function CitasDisponibles() {
   const [correo, cambiarCorreo] = useState({ campo: '', valido: null });
   const [fechaNacimiento, cambiarFechaNacimiento] = useState({ campo: '', valido: null });
 
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+  const [feedback, setFeedback] = useState({
+    calificacion: 5,
+    comentario: ""
+  });
+
+  const handleFeedbackSubmit = async () => {
+    try {
+      const response = await fetch("https://rest-api2-three.vercel.app/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pacienteId: paciente,
+          comentario: feedback.comentario,
+          calificacion: feedback.calificacion,
+        }),
+      });
+      if (!response.ok) throw new Error("Error al enviar feedback");
+  
+      Swal.fire({
+        icon: 'success',
+        title: '¡Gracias por su feedback!',
+        text: 'Su opinión nos ayuda a mejorar.',
+      });
+      setShowFeedbackForm(false); // Cierra el formulario
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: "No se pudo enviar el feedback.",
+      });
+    }
+  };
+
   const expresiones = {
     nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -123,6 +157,18 @@ export default function CitasDisponibles() {
       });
     }
   };*/
+  const verificarFeedbackExistente = async (pacienteId) => {
+    try {
+      const response = await fetch(`https://rest-api2-three.vercel.app/api/existe_feedback/${pacienteId}`);
+      const data = await response.json();
+      console.log(data.exists);
+      if (data.exists === false) {
+        setShowFeedbackForm(true);
+      }
+    } catch (error) {
+      console.error("Error al verificar el feedback:", error);
+    }
+  };
 
   const handlePaymentSuccess = async () => {
     // Actualizar la cita en el backend después de un pago exitoso
@@ -143,6 +189,7 @@ export default function CitasDisponibles() {
         text: 'Se agendó su cita correctamente',
       });
       obtenerCitasDisponibles();
+      verificarFeedbackExistente(paciente);
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -205,8 +252,8 @@ export default function CitasDisponibles() {
         onSelectEvent={handleCitaSelection}
         style={{ height: 500 }}
         messages={{
-          next: "sig",
-          previous: "ant",
+          next: "Siguiente",
+          previous: "Anterior",
           today: "Hoy",
           month: "Mes",
           week: "Semana",
@@ -343,6 +390,44 @@ export default function CitasDisponibles() {
           </div>
         </div>
       </div>
+      {showFeedbackForm && (
+    <div
+    className="modal fade show"
+    style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+    tabIndex="-1"
+    aria-labelledby="feedbackModalLabel"
+    aria-hidden="true"
+  >
+    <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title" id="feedbackModalLabel">Califica tu experiencia</h5>
+          <button type="button" className="btn-close" onClick={() => setShowFeedbackForm(false)}></button>
+        </div>
+        <div className="modal-body">
+          <form>
+            <div className="mb-3">
+              <label className="form-label">Calificación (1-5)</label>
+              <select
+                className="form-select"
+                value={feedback.calificacion}
+                onChange={(e) => setFeedback({ ...feedback, calificacion: parseInt(e.target.value) })}
+              >
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <option key={value} value={value}>{value}</option>
+                ))}
+              </select>
+            </div>
+          </form>
+        </div>
+        <div className="modal-footer">
+          <button type="button" className="btn btn-secondary" onClick={() => setShowFeedbackForm(false)}>Cancelar</button>
+          <button type="button" className="btn btn-primary" onClick={handleFeedbackSubmit}>Enviar Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    )}
     </div>
   );
 }
