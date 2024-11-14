@@ -3,7 +3,8 @@ import './App.css';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  useLocation
 } from "react-router-dom";
 import Home from './views/Inicio';
 import Nota from './views/Notas';
@@ -37,7 +38,19 @@ import EditarHeridas from './views/EditarHeridas';
 import Perfil from './views/Perfil';
 import EditPerfil from './views/EditPerfil';
 import HistorialPagoss from './views/HistorialPagos';
+
+import { initGA, logPageView } from './analytics';
 function App() {
+  useEffect(() => {
+    const TRACKING_ID = "G-T0W08YDD32"; // Reemplaza con tu ID de Google Analytics
+    initGA(TRACKING_ID);
+  }, []);
+
+  // Registrar la vista de página en cada cambio de ruta
+  const location = useLocation();
+  useEffect(() => {
+    logPageView();
+  }, [location]);
   return (  
     <AuthContextProvider>
           <BrowserRouter>
