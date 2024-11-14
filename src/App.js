@@ -44,7 +44,7 @@ import HistorialPagoss from './views/HistorialPagos';
 import { initGA, logPageView } from './analytics';
 import ReactGA from 'react-ga4';
 // Inicializa Google Analytics solo una vez
-ReactGA.initialize("G-T0W08YDD32");
+ReactGA.initialize("G-5H7J2M6WQJ");
 // Este componente es responsable de enviar la página vista a Google Analytics cada vez que la ubicación cambia.
 function GoogleAnalyticsTracker() {
   const location = useLocation();
