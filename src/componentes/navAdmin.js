@@ -72,7 +72,10 @@ export default function NavbarAdmin() {
                                 <Link className="nav-link" to={'/Ad/HistorialPagos'}>Pagos</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/Ad/Perfil'}>Perfil</Link>
+                                <Link className="nav-link" to={'/Ad/HistorialPagos'}>Pagos</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/Ad/FeedBack'}>FeedBack</Link>
                             </li>
                             <input type="button" className="btn btn-success me-2" onClick={Salir} value="Logout" />
                         </ul>

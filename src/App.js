@@ -43,6 +43,7 @@ import HistorialPagoss from './views/HistorialPagos';
 
 import { initGA, logPageView } from './analytics';
 import ReactGA from 'react-ga4';
+import FeedBackView from './views/FeedBackView';
 // Inicializa Google Analytics solo una vez
 ReactGA.initialize("G-5H7J2M6WQJ");
 // Este componente es responsable de enviar la página vista a Google Analytics cada vez que la ubicación cambia.
@@ -92,6 +93,7 @@ function App() {
               <Route path='/Ad/Perfil' Component={Perfil}></Route>
               <Route path='/Ad/EditPerfil' Component={EditPerfil}></Route>
               <Route path='/Ad/HistorialPagos' Component={HistorialPagoss}></Route>
+              <Route path='/Ad/FeedBack' Component={FeedBackView}></Route>
             </Routes>
           </BrowserRouter>
     </AuthContextProvider>
