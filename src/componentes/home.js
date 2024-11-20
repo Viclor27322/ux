@@ -3,6 +3,7 @@ import Logo from '../img/CirupieD.png';
 import slider1 from '../img/slider-1.jpg';
 import slider2 from '../img/slider-4.jpg';
 import slider3 from '../img/slider-5.jpg';
+import homecss from '../css/home.css';
 
 export default function Inicio() {
     return (
@@ -80,9 +81,14 @@ export default function Inicio() {
                     </div>
                 </div>
             </div>
+            <div className="pt-4">
+                <h3>Mi ubicacion</h3>
+                <iframe src="https://www.google.com.mx/maps/place/Uniformes+Mi+Enfermera+Favorita/@21.143713,-98.4231253,18.79z/data=!4m6!3m5!1s0x85d7276c67e734b7:0x1b50d75f53f760a5!8m2!3d21.1438829!4d-98.4233404!16s%2Fg%2F11jt18jjqx?entry=ttu"></iframe>
+            </div>
         </div>
         </div>
         
     );
 }
+
 
