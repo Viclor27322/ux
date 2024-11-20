@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import '../css/checkform.css';
+import Swal from 'sweetalert2';
 
 export default function CheckoutForm({ cita, onPaymentSuccess }) {
   const stripe = useStripe();
@@ -13,43 +13,83 @@ export default function CheckoutForm({ cita, onPaymentSuccess }) {
     setLoading(true);
     setMessage('');
 
+    if (!stripe || !elements) {
+      setMessage('Stripe no está listo. Por favor intenta nuevamente.');
+      setLoading(false);
+      return;
+    }
+
     try {
+      // Llama al backend para obtener el clientSecret
       const response = await fetch('https://rest-api2-three.vercel.app/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 1000, pacienteId: cita }),
+        body: JSON.stringify({
+          amount: 10000, // Ajusta el monto según sea necesario (en centavos)
+          pacienteId: cita,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error('Error al crear el PaymentIntent');
+      }
 
       const { clientSecret } = await response.json();
 
-      // Confirmar el pago
+      // Confirma el pago en Stripe
       const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: { card: elements.getElement(CardElement) },
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            email: 'usuario@correo.com', // Puedes agregar más datos aquí
+          },
+        },
       });
 
       if (result.error) {
         setMessage(`Error: ${result.error.message}`);
       } else if (result.paymentIntent.status === 'succeeded') {
-        setMessage('Pago exitoso. Su cita ha sido agendada.');
-        onPaymentSuccess(); // Llama a la función para agendar la cita
+        setMessage('Pago exitoso. ¡Gracias por tu pago!');
+        Swal.fire({
+          icon: 'success',
+          title: 'Pago completado',
+          text: 'Su cita ha sido agendada exitosamente.',
+        });
+        onPaymentSuccess(); // Llama a la función para realizar acciones adicionales después del pago
       }
     } catch (error) {
       setMessage('Hubo un error al procesar el pago.');
-      console.error(error);
+      console.error('Error al procesar el pago:', error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="payment-form">
-  <CardElement className="StripeElement" />
-  <button type="submit" disabled={!stripe || loading}>
-    {loading ? 'Procesando...' : 'Pagar y Agendar Cita'}
-  </button>
-  {message && <p>{message}</p>}
-</form>
-
+    <form onSubmit={handleSubmit}>
+      <div style={{ marginBottom: '20px' }}>
+        <label htmlFor="card-element">Información de tarjeta:</label>
+        <div style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginTop: '10px' }}>
+          <CardElement
+            id="card-element"
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#424770',
+                  '::placeholder': { color: '#aab7c4' },
+                },
+                invalid: { color: '#9e2146' },
+              },
+            }}
+          />
+        </div>
+      </div>
+      <button type="submit" disabled={!stripe || loading} className="btn btn-primary">
+        {loading ? 'Procesando...' : 'Pagar y Agendar Cita'}
+      </button>
+      {message && <p style={{ color: message.includes('Error') ? 'red' : 'green' }}>{message}</p>}
+    </form>
   );
 }
 
