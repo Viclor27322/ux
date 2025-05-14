@@ -10,7 +10,7 @@
     "@stripe/stripe-js": "^4.9.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.4",
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
     "braces": "^3.0.3",
